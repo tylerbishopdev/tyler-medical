@@ -1,0 +1,2166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voluntary Public Medical Records | Tyler Bishop</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <style>
+        /* Satoshi Font Family */
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-Variable.woff2') format('woff2'),
+                 url('fonts/Satoshi-Variable.woff') format('woff'),
+                 url('fonts/Satoshi-Variable.ttf') format('truetype');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-VariableItalic.woff2') format('woff2'),
+                 url('fonts/Satoshi-VariableItalic.woff') format('woff'),
+                 url('fonts/Satoshi-VariableItalic.ttf') format('truetype');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: italic;
+        }
+
+        /* Static font fallbacks */
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-Light.woff2') format('woff2'),
+                 url('fonts/Satoshi-Light.woff') format('woff'),
+                 url('fonts/Satoshi-Light.ttf') format('truetype');
+            font-weight: 300;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-Regular.woff2') format('woff2'),
+                 url('fonts/Satoshi-Regular.woff') format('woff'),
+                 url('fonts/Satoshi-Regular.ttf') format('truetype');
+            font-weight: 400;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-Medium.woff2') format('woff2'),
+                 url('fonts/Satoshi-Medium.woff') format('woff'),
+                 url('fonts/Satoshi-Medium.ttf') format('truetype');
+            font-weight: 500;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-Bold.woff2') format('woff2'),
+                 url('fonts/Satoshi-Bold.woff') format('woff'),
+                 url('fonts/Satoshi-Bold.ttf') format('truetype');
+            font-weight: 700;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('fonts/Satoshi-Black.woff2') format('woff2'),
+                 url('fonts/Satoshi-Black.woff') format('woff'),
+                 url('fonts/Satoshi-Black.ttf') format('truetype');
+            font-weight: 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(15deg, #0D0E0E 0%, #0E0E0E 100%);
+            color: #ACEBE6;
+            min-height: 100vh;
+            padding: 20px;
+            letter-spacing: -0.25px;
+            font-size: medium   ;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: rgba(35 48 49 / 0.17);
+            border: 1px solid rgba(0 229 255 / 0.27);
+            padding: 30px;
+            border-radius: 9px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(100px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 0 7px 0 rgba(124 163 167 / 0.3);
+           
+        }
+        
+        .header-content {
+            flex: 1;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+            align-items: flex-start;
+        }
+        
+        .privacy-badge {
+            display: inline-block;
+            background: #E7784C;
+            color: #44240E;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: -0.1px;
+            text-transform: uppercase;
+        }
+        
+        .export-btn {
+            background: #0629305F;
+            color: #ADECEA;
+            border: 1px solid #36FFF8;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .export-btn:hover {
+            background: #6192935E;
+            transform: translateY(-0px);
+            box-shadow: 0 4px 12px rgba(123 143 151 / 0.3);
+        }
+        
+        .export-btn:active {
+            transform: translateY(0);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1CFFE1;
+        }
+        
+        .patient-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .info-card {
+            background: rgba(36 143 136 / 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(148 184 180 / 0.56);
+        }
+        
+        .info-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: #0EFFFF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .info-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: #A7E2EC;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(148 184 184 / 0.2);
+            flex-wrap: wrap;
+        }
+        
+        .tab-button {
+            padding: 8px 14px;
+            background: transparent;
+            border: none;
+            color: #7E9390CC;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            bottom: -1px;
+        }
+        
+        .tab-button:hover {
+            color: #cbd5e1;
+        }
+        
+        .tab-button.active {
+            color: #3BBDA3;
+            border-bottom-color: #D0975B;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #38F8F2;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(56 248 242 / 0.3);
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .chart-card {
+            background: rgba(30 59 56 / 0.6);
+            border: 1px solid rgba(94 180 167 / 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #97E2D2;
+            margin-bottom: 15px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            background: rgba(64 72 72 / 0.22);
+            border: 1px solid rgba(95 255 255 / 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            backdrop-filter: blur(100px);
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: rgba(2 23 23 / 0.5);
+        }
+        
+        th {
+            padding: 12px;
+            text-align: left;
+            color: #86DFD3;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(56 248 223 / 0.2);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.0px;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+        
+        tr:hover {
+            background: rgba(56, 189, 248, 0.05);
+        }
+        
+        .flag-high {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        .flag-low {
+            color: #ffd43b;
+            font-weight: 600;
+        }
+        
+        .flag-normal {
+            color: #51cf66;
+        }
+        
+        .reference-range {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .status-normal {
+            background: rgba(41 134 100 / 0.2);
+            color: #72FCC1;
+        }
+        
+        .status-high {
+            background: rgba(135 40 40 / 0.2);
+            color: #FF8989;
+        }
+        
+        .status-alert {
+            background: rgba(255 119 7 / 0.2);
+            color: #FFAA3B;
+        }
+        
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .metric-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(148, 163, 184, 0.15);
+        }
+        
+        .metric-name {
+            font-size: 13px;
+            color: #94B7B8;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+        }
+        
+        .metric-value {
+            font-size: 22px;
+            font-weight: 700;
+            color: #E2F0EF;
+            margin-bottom: 5px;
+        }
+        
+        .metric-range {
+            font-size: 11px;
+            color: #64868B;
+        }
+        
+        .timeline {
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            padding: 15px 0;
+            margin-bottom: 20px;
+        }
+        
+        .timeline-item {
+            min-width: 120px;
+            padding: 10px;
+            background: rgba(92 101 101 / 0.18);
+            border: 1px solid rgba(148, 163, 184, 0.15);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            border-color: rgba(56 248 223 / 0.4);
+            background: rgba(37 157 139 / 0.1);
+        }
+        
+        .timeline-item.active {
+            border-color: #547C73;
+            background: rgba(10 37 32 / 0.2);
+        }
+        
+        .timeline-date {
+            font-size: 12px;
+            font-weight: 600;
+            color: #62C5BA;
+        }
+        
+        .timeline-label {
+            font-size: 10px;
+            color: #7AFDFF;
+            margin-top: 5px;
+        }
+        
+        .allergy-list {
+            columns: 2;
+            gap: 20px;
+        }
+        
+        .allergy-item {
+            background: rgba(2, 6, 23, 0.5);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 3px solid #51CFB0;
+            break-inside: avoid;
+        }
+        
+        .allergy-name {
+            font-weight: 600;
+            color: #E2F0EE;
+            margin-bottom: 5px;
+        }
+        
+        .allergy-result {
+            font-size: 12px;
+            color: #94B8B0;
+        }
+        
+        .genetic-section {
+            background: rgba(30 58 59 / 0.6);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(148 184 178 / 0.2);
+            margin-bottom: 20px;
+        }
+        
+        .genetic-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #CBE1E0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+        
+        .genetic-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .genetic-item {
+            background: rgba(9 36 32 / 0.5);
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #38F8DB;
+        }
+        
+        .genetic-label {
+            font-size: 12px;
+            color: #94B3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            margin-bottom: 5px;
+        }
+        
+        .genetic-result {
+            font-weight: 600;
+            color: #CEC3BB;
+        }
+        
+        .notes {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 3px solid #38bdf8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+        
+        @media print {
+            body {
+                background: #fff;
+                color: #000;
+            }
+            
+            .header {
+                background: #f9fafb;
+                border: 2px solid #000;
+                margin-bottom: 20px;
+            }
+            
+            .privacy-badge {
+                background: #000;
+                color: #fff;
+            }
+            
+            .export-btn {
+                display: none;
+            }
+            
+            .tabs {
+                display: none;
+            }
+            
+            .tab-content {
+                display: block !important;
+            }
+            
+            .chart-card, .table-container, .metric-card, .genetic-section {
+                background: #fff;
+                border: 1px solid #000;
+                page-break-inside: avoid;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .timeline {
+                display: none;
+            }
+            
+            @page {
+                margin: 0.5in;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .header-actions {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .allergy-list {
+                columns: 1;
+            }
+            
+            .header {
+                padding: 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .tab-button {
+                width: 100%;
+                text-align: left;
+                padding: 15px 20px;
+                border-bottom: 2px solid transparent;
+                border-left: 3px solid transparent;
+                background: rgba(30, 41, 59, 0.5);
+                margin-bottom: 5px;
+            }
+            
+            .tab-button.active {
+                border-left-color: #38bdf8;
+                border-bottom-color: transparent;
+                background: rgba(56, 189, 248, 0.2);
+            }
+            
+            .metric-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .genetic-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .tab-content {
+                padding: 0;
+            }
+            
+            .section {
+                margin-bottom: 30px;
+            }
+            
+            table {
+                font-size: 12px;
+            }
+            
+            th, td {
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>        <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>Tyler Bishop | Voluntary Public Medical Records  </h1>
+                <p style="color: #94a3b8; margin-bottom: 15px;">Updated labs and tests for Tyler open sourced (with most records included from the past 8 years)</p>
+                <div class="patient-info">
+                <div class="info-card">
+                    <div class="info-label">Name</div>
+                    <div class="info-value">Tyler Bishop</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">DOB</div>
+                    <div class="info-value">05/26/1987</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Age</div>
+                    <div class="info-value">38 years</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Sex</div>
+                    <div class="info-value">Male</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Location</div>
+                    <div class="info-value">San Diego, CA</div>
+                </div>
+                <div class="info-card">
+                    <div class="info-label">Records Span</div>
+                    <div class="info-value">2017-2026</div>
+                </div>
+                </div>
+            </div>
+            <div class="header-actions">
+                <div class="privacy-badge">PUBLIC On Purpose</div>
+                <button class="export-btn" onclick="exportRecord()">
+                    <span>📥</span>
+                    <span>Export Raw Data</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="switchTab('overview')">Overview</button>
+            <button class="tab-button" onclick="switchTab('cbc')">Blood Count</button>
+            <button class="tab-button" onclick="switchTab('metabolic')">Metabolic Panel</button>
+            <button class="tab-button" onclick="switchTab('liver')">Liver Function</button>
+            <button class="tab-button" onclick="switchTab('immune')">Immune & Antibodies</button>
+            <button class="tab-button" onclick="switchTab('allergies')">Allergies & IgE</button>
+            <button class="tab-button" onclick="switchTab('genetic')">Genetic Profile</button>
+            <button class="tab-button" onclick="switchTab('trends')">Trends &amp; Alerts</button>
+            <button class="tab-button" onclick="switchTab('archive')">Data Archive</button>
+        </div>
+        
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <div class="section">
+                <div class="section-title">Test History Timeline</div>
+                <div class="timeline">
+                    <div class="timeline-item active" onclick="selectDate(this, '12/18/2017')">
+                        <div class="timeline-date">12/18/2017</div>
+                        <div class="timeline-label">CBC, CMP, Lipids</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '08/28/2018')">
+                        <div class="timeline-date">08/28/2018</div>
+                        <div class="timeline-label">Allergies, CBC, CMP</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '02/07/2020')">
+                        <div class="timeline-date">02/07/2020</div>
+                        <div class="timeline-label">Renal Panel, UA</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '04/27/2023')">
+                        <div class="timeline-date">04/27/2023</div>
+                        <div class="timeline-label">Allergens</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '11/18/2024')">
+                        <div class="timeline-date">11/18/2024</div>
+                        <div class="timeline-label">Rheumatology Panel</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '07/17/2025')">
+                        <div class="timeline-date">07/17/2025</div>
+                        <div class="timeline-label">CBC, CMP</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '01/04/2026')">
+                        <div class="timeline-date">01/04/2026</div>
+                        <div class="timeline-label">Synovial Fluid</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '01/12/2026')">
+                        <div class="timeline-date">01/12/2026</div>
+                        <div class="timeline-label">C1, Tryptase</div>
+                    </div>
+                    <div class="timeline-item" onclick="selectDate(this, '01/16/2026')">
+                        <div class="timeline-date">01/16/2026</div>
+                        <div class="timeline-label">Coagulation</div>
+                    </div>
+                    <div class="timeline-item active" onclick="selectDate(this, '01/19/2026')">
+                        <div class="timeline-date">01/19/2026</div>
+                        <div class="timeline-label">LDH Isoenzymes</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Key Health Metrics (Latest: 01/19/2026)</div>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-name">Glucose</div>
+                        <div class="metric-value" style="color: #51cf66;">77</div>
+                        <div class="metric-range">Reference: 70-99 mg/dL</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">Creatinine</div>
+                        <div class="metric-value" style="color: #51cf66;">1.02</div>
+                        <div class="metric-range">Reference: 0.76-1.27 mg/dL</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">eGFR</div>
+                        <div class="metric-value" style="color: #51cf66;">96</div>
+                        <div class="metric-range">Reference: &gt;59 mL/min/1.73</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">BUN</div>
+                        <div class="metric-value" style="color: #51cf66;">13</div>
+                        <div class="metric-range">Reference: 6-20 mg/dL</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">Potassium</div>
+                        <div class="metric-value" style="color: #51cf66;">4.6</div>
+                        <div class="metric-range">Reference: 3.5-5.2 mmol/L</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">AST</div>
+                        <div class="metric-value" style="color: #51cf66;">27</div>
+                        <div class="metric-range">Reference: 0-40 IU/L</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">Total IgE</div>
+                        <div class="metric-value" style="color: #51cf66;">9</div>
+                        <div class="metric-range">Reference: 0-100 IU/mL</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-name">Allergen Status</div>
+                        <div class="metric-value" style="color: #51cf66;">All Negative</div>
+                        <div class="metric-range">No detectable allergen reactions</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Recent Notable Findings</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Latest Result</th>
+                                <th>Reference Range</th>
+                                <th>Status</th>
+                                <th>Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Glucose</td>
+                                <td>77 mg/dL</td>
+                                <td>70-99</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                                <td>Improved from 87 in July 2025</td>
+                            </tr>
+                            <tr>
+                                <td>LDH Total</td>
+                                <td>231 IU/L</td>
+                                <td>121-224</td>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                                <td>Slightly elevated (Jan 19, 2026); LD fractions show normal distribution</td>
+                            </tr>
+                            <tr>
+                                <td>AST</td>
+                                <td>27 IU/L</td>
+                                <td>0-40</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                                <td>Significantly improved from 62 in Nov 2024</td>
+                            </tr>
+                            <tr>
+                                <td>ALT</td>
+                                <td>30 IU/L</td>
+                                <td>0-44</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                                <td>Major improvement from 95 in Nov 2024</td>
+                            </tr>
+                            <tr>
+                                <td>Total Bilirubin</td>
+                                <td>1.1 mg/dL</td>
+                                <td>0.0-1.2</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                                <td>Improved from 1.5 in Aug 2018</td>
+                            </tr>
+                            <tr>
+                                <td>Vitamin B12</td>
+                                <td>1728 pg/mL</td>
+                                <td>232-1245</td>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                                <td>Elevated (Aug 2018), suggests supplementation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- LDH Isoenzymes Section -->
+            <div class="section">
+                <div class="section-title">LD Isoenzymes / LDH Fractions (01/19/2026) ⚠️</div>
+                <p style="color: #94B8B0; margin-bottom: 15px;">These tests measure the different "fractions" of Lactate Dehydrogenase to pinpoint tissue damage.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Result</th>
+                                <th>Reference Interval</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>LDH Total</strong></td>
+                                <td>231 IU/L</td>
+                                <td>121–224 IU/L</td>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td>LD Fraction 1 (Heart, RBC)</td>
+                                <td>31%</td>
+                                <td>17–32%</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>LD Fraction 2 (Heart, RBC)</td>
+                                <td>34%</td>
+                                <td>25–40%</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>LD Fraction 3 (Lung, Lymph)</td>
+                                <td>20%</td>
+                                <td>17–27%</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>LD Fraction 4 (Liver, Muscle)</td>
+                                <td>8%</td>
+                                <td>5–13%</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>LD Fraction 5 (Liver, Muscle)</td>
+                                <td>7%</td>
+                                <td>4–20%</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes">
+                    <strong>Analysis:</strong> While total LDH is slightly elevated at 231 IU/L, all individual LD fractions are within normal limits. The normal LD1/LD2 ratio rules out acute myocardial infarction or hemolysis as causes. Normal LD4/LD5 suggests no active liver or muscle damage. The mild LDH elevation may be due to minor cellular turnover or sample handling. Continue monitoring.
+                </div>
+            </div>
+            
+            <!-- Critical Synovial Fluid Analysis Section -->
+            <div class="section">
+                <div class="section-title" style="color: #FF8989;">⚠️ Critical Finding: Synovial Fluid Analysis (01/04/2026)</div>
+                <p style="color: #FFAA3B; margin-bottom: 15px;"><strong>Source: Right Elbow</strong> — This report indicates <strong>hemarthrosis</strong> (bleeding into the joint), which is a significant finding.</p>
+                <div class="table-container" style="border-color: rgba(255 107 107 / 0.4);">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Result</th>
+                                <th>Reference</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Appearance</td>
+                                <td style="color: #FF8989; font-weight: 600;">Bloody</td>
+                                <td>Clear</td>
+                                <td><span class="status-badge status-high">ABNORMAL</span></td>
+                            </tr>
+                            <tr>
+                                <td>Color</td>
+                                <td style="color: #FF8989; font-weight: 600;">Red</td>
+                                <td>Yellow</td>
+                                <td><span class="status-badge status-high">ABNORMAL</span></td>
+                            </tr>
+                            <tr>
+                                <td>RBC Count</td>
+                                <td style="color: #FF8989; font-weight: 600;">3,197,000 /mcL</td>
+                                <td>&lt; 2,000 /mcL</td>
+                                <td><span class="status-badge status-high">CRITICAL HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td>Nucleated Cells</td>
+                                <td style="color: #FF8989; font-weight: 600;">2,570 /mcL</td>
+                                <td>0–200 /mcL</td>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                            </tr>
+                            <tr>
+                                <td>Neutrophils</td>
+                                <td style="color: #FFAA3B; font-weight: 600;">68%</td>
+                                <td>&lt; 25%</td>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes" style="border-left-color: #FF8989;">
+                    <strong>⚠️ Clinical Significance:</strong> The synovial fluid analysis reveals <strong>hemarthrosis</strong> with extremely elevated RBC count (3.2 million vs normal &lt;2,000). Elevated nucleated cells and neutrophils suggest an inflammatory response to the blood in the joint space. <br><br>
+                    <strong>Possible causes include:</strong> Trauma, coagulopathy, anticoagulant therapy, hemophilia, or pigmented villonodular synovitis. Factor V Leiden and Antiphospholipid panel were subsequently tested and both negative. Requires clinical correlation and may warrant rheumatology or hematology follow-up.
+                </div>
+            </div>
+        </div>
+        
+        <!-- CBC TAB -->
+        <div id="cbc" class="tab-content">
+            <div class="section">
+                <div class="section-title">Complete Blood Count (CBC) - Historical Data</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Date</th>
+                                <th>WBC (x10E3/uL)</th>
+                                <th>RBC (x10E6/uL)</th>
+                                <th>Hemoglobin (g/dL)</th>
+                                <th>Hematocrit (%)</th>
+                                <th>MCV (fL)</th>
+                                <th>MCH (pg)</th>
+                                <th>Platelets (x10E3/uL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>12/18/2017</strong></td>
+                                <td>5.1</td>
+                                <td>4.60</td>
+                                <td>13.8</td>
+                                <td>40.0</td>
+                                <td>87</td>
+                                <td>30.0</td>
+                                <td>247</td>
+                            </tr>
+                            <tr>
+                                <td><strong>08/28/2018</strong></td>
+                                <td>4.7</td>
+                                <td>4.41</td>
+                                <td>13.4</td>
+                                <td>38.4</td>
+                                <td>87</td>
+                                <td>30.4</td>
+                                <td>222</td>
+                            </tr>
+                            <tr>
+                                <td><strong>11/18/2024</strong></td>
+                                <td>4.8</td>
+                                <td>4.46</td>
+                                <td>13.5</td>
+                                <td>40.2</td>
+                                <td>90</td>
+                                <td>30.3</td>
+                                <td>288</td>
+                            </tr>
+                            <tr style="background: rgba(56, 189, 248, 0.1);">
+                                <td><strong>07/17/2025</strong></td>
+                                <td>5.0</td>
+                                <td>4.64</td>
+                                <td>14.1</td>
+                                <td>42.7</td>
+                                <td>92</td>
+                                <td>30.4</td>
+                                <td>272</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes">
+                    <strong>Notes:</strong> All CBC values remain within normal reference ranges. Hemoglobin and hematocrit show modest increase in 2025, suggesting healthy blood composition. WBC, RBC, and platelet counts all normal, indicating no anemia or clotting disorders.
+                </div>
+            </div>
+        </div>
+        
+        <!-- METABOLIC TAB -->
+        <div id="metabolic" class="tab-content">
+            <div class="section">
+                <div class="section-title">Comprehensive Metabolic Panel (CMP) - Historical Data</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Date</th>
+                                <th>Glucose (mg/dL)</th>
+                                <th>BUN (mg/dL)</th>
+                                <th>Creatinine (mg/dL)</th>
+                                <th>eGFR</th>
+                                <th>Sodium (mmol/L)</th>
+                                <th>Potassium (mmol/L)</th>
+                                <th>Chloride (mmol/L)</th>
+                                <th>Calcium (mg/dL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>12/18/2017</strong></td>
+                                <td>90</td>
+                                <td>10</td>
+                                <td>1.00</td>
+                                <td>101</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>08/28/2018</strong></td>
+                                <td>86</td>
+                                <td>10</td>
+                                <td>1.06</td>
+                                <td>93</td>
+                                <td>141</td>
+                                <td>4.3</td>
+                                <td>100</td>
+                                <td>9.9</td>
+                            </tr>
+                            <tr>
+                                <td><strong>02/07/2020</strong></td>
+                                <td>92</td>
+                                <td>7</td>
+                                <td>1.02</td>
+                                <td>97</td>
+                                <td>140</td>
+                                <td>5.1</td>
+                                <td>99</td>
+                                <td>9.9</td>
+                            </tr>
+                            <tr>
+                                <td><strong>11/18/2024</strong></td>
+                                <td>90</td>
+                                <td>16</td>
+                                <td>1.14</td>
+                                <td>85</td>
+                                <td>139</td>
+                                <td>4.4</td>
+                                <td>99</td>
+                                <td>9.9</td>
+                            </tr>
+                            <tr>
+                                <td><strong>07/17/2025</strong></td>
+                                <td>87</td>
+                                <td>17</td>
+                                <td>1.14</td>
+                                <td>84</td>
+                                <td>139</td>
+                                <td>5.3</td>
+                                <td>101</td>
+                                <td>10.1</td>
+                            </tr>
+                            <tr style="background: rgba(56, 189, 248, 0.1);">
+                                <td><strong>01/16/2026</strong></td>
+                                <td>77</td>
+                                <td>13</td>
+                                <td>1.02</td>
+                                <td>96</td>
+                                <td>139</td>
+                                <td>4.6</td>
+                                <td>98</td>
+                                <td>10.2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes">
+                    <strong>Trends &amp; Notes:</strong> Glucose levels stable and normal (77-92 mg/dL). Creatinine stable around 1.0-1.14, indicating consistent kidney function. eGFR is healthy (&gt;59 mL/min/1.73). BUN shows increase from 2018 to 2025, then improved in 2026. Electrolytes (Na, K, Cl, Ca) all within normal ranges throughout record period.
+                </div>
+            </div>
+        </div>
+        
+        <!-- LIVER TAB -->
+        <div id="liver" class="tab-content">
+            <div class="section">
+                <div class="section-title">Liver Function Panel - Historical Data</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Date</th>
+                                <th>AST (IU/L)</th>
+                                <th>ALT (IU/L)</th>
+                                <th>ALP (IU/L)</th>
+                                <th>Bilirubin (mg/dL)</th>
+                                <th>Albumin (g/dL)</th>
+                                <th>Total Protein (g/dL)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>08/28/2018</strong></td>
+                                <td>37</td>
+                                <td>24</td>
+                                <td>52</td>
+                                <td class="flag-high">1.5*</td>
+                                <td>4.9</td>
+                                <td>6.8</td>
+                            </tr>
+                            <tr>
+                                <td><strong>02/07/2020</strong></td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>4.7</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>11/18/2024</strong></td>
+                                <td class="flag-high">62*</td>
+                                <td class="flag-high">95*</td>
+                                <td>79</td>
+                                <td>1.1</td>
+                                <td>4.7</td>
+                                <td>6.6</td>
+                            </tr>
+                            <tr>
+                                <td><strong>07/17/2025</strong></td>
+                                <td>31</td>
+                                <td>30</td>
+                                <td>77</td>
+                                <td>1.0</td>
+                                <td>4.6</td>
+                                <td>6.6</td>
+                            </tr>
+                            <tr style="background: rgba(56, 189, 248, 0.1);">
+                                <td><strong>01/16/2026</strong></td>
+                                <td>27</td>
+                                <td>-</td>
+                                <td>86</td>
+                                <td>1.1</td>
+                                <td>4.8</td>
+                                <td>6.8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes">
+                    <strong>Trends &amp; Notes:</strong> <strong>*Alert:</strong> AST and ALT were significantly elevated in Nov 2024 (62 and 95 IU/L respectively), but improved dramatically by July 2025 and current values (27 and 30) are well within normal limits. This suggests either an acute condition that resolved or excellent treatment response. Total bilirubin was slightly elevated in Aug 2018 (1.5) but normalized subsequently. Albumin and total protein consistently normal, indicating good liver synthetic function.
+                </div>
+            </div>
+        </div>
+        
+        <!-- IMMUNE TAB -->
+        <div id="immune" class="tab-content">
+            <!-- C1 & Tryptase Section -->
+            <div class="section">
+                <div class="section-title">C1 Esterase &amp; Tryptase Testing (01/12/2026)</div>
+                <p style="color: #94B8B0; margin-bottom: 15px;">These tests evaluate for angioedema or mast cell activation disorders.</p>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Result</th>
+                                <th>Reference Interval</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>C1 Esterase Inhibitor</td>
+                                <td>29 mg/dL</td>
+                                <td>21–39 mg/dL</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complement C1q, Quantitative</td>
+                                <td>12.6 mg/dL</td>
+                                <td>10.2–20.3 mg/dL</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Tryptase</td>
+                                <td>6.0 ug/L</td>
+                                <td>2.2–13.2 ug/L</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes">
+                    <strong>Interpretation:</strong> All values within normal limits. Normal C1 Esterase Inhibitor level rules out hereditary angioedema (HAE). Normal Tryptase level rules out systemic mastocytosis and suggests no baseline mast cell activation disorder. These tests were likely ordered to evaluate unexplained swelling or allergic-type symptoms.
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Immune, Autoimmune &amp; Infectious Disease Screening (11/18/2024)</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test</th>
+                                <th>Result</th>
+                                <th>Reference Range</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>HBsAg (Hepatitis B Surface Antigen)</td>
+                                <td>Negative</td>
+                                <td>Negative</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>HCV Ab (Hepatitis C Antibody)</td>
+                                <td>Non Reactive</td>
+                                <td>Non Reactive</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Hepatitis B Core Ab, Total</td>
+                                <td>Negative</td>
+                                <td>Negative</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Hepatitis B Surf Ab Quant</td>
+                                <td>34415.0 mIU/mL</td>
+                                <td>&gt;10 (Immunity)</td>
+                                <td><span class="status-badge status-normal">Immune</span></td>
+                            </tr>
+                            <tr>
+                                <td>QuantiFERON-TB Gold Plus</td>
+                                <td>Negative</td>
+                                <td>Negative</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Rheumatoid Factor (RF)</td>
+                                <td>&lt;10.0 IU/mL</td>
+                                <td>&lt;14.0</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Anti-CCP Antibody</td>
+                                <td>&lt;20 Units</td>
+                                <td>&lt;20</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Antinuclear Antibody (ANA)</td>
+                                <td>Negative</td>
+                                <td>Negative</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Sjogren's Anti-SS-A</td>
+                                <td>&lt;0.2 AI</td>
+                                <td>0.0-0.9</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Sjogren's Anti-SS-B</td>
+                                <td>&lt;0.2 AI</td>
+                                <td>0.0-0.9</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Smith Antibodies</td>
+                                <td>&lt;0.2 AI</td>
+                                <td>0.0-0.9</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Anti-dsDNA Antibodies</td>
+                                <td>&lt;1 IU/mL</td>
+                                <td>0-9 (Negative &lt;5)</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Anti-U1 RNP Antibody</td>
+                                <td>&lt;20 Units</td>
+                                <td>&lt;20</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Anti-DFS70 Antibody</td>
+                                <td>&lt;20 Units</td>
+                                <td>&lt;20</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>HLA-B27</td>
+                                <td>Negative</td>
+                                <td>Negative</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complement C3, Serum</td>
+                                <td>93 mg/dL</td>
+                                <td>82-167</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Complement C4, Serum</td>
+                                <td>15 mg/dL</td>
+                                <td>12-38</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Celiac Disease (tTG IgA)</td>
+                                <td>&lt;2 U/mL</td>
+                                <td>0-3</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="notes">
+                    <strong>Summary:</strong> All infectious disease screening tests (Hepatitis B, C, TB) negative or show immunity to Hepatitis B. All autoimmune markers (ANA, Rheumatoid Factor, Anti-CCP, connective tissue disease antibodies) are negative, effectively ruling out systemic autoimmune conditions. No evidence of celiac disease.
+                </div>
+            </div>
+        </div>
+        
+        <!-- ALLERGIES TAB -->
+        <div id="allergies" class="tab-content">
+            <div class="section">
+                <div class="section-title">Allergen-Specific IgE Testing (All Dates)</div>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-name">Total IgE</div>
+                        <div class="metric-value" style="color: #51cf66;">9 IU/mL</div>
+                        <div class="metric-range">Reference: 0-100 IU/mL | Date: 08/28/2018</div>
+                    </div>
+                </div>
+                
+                <div class="section-title" style="margin-top: 30px;">Allergen Classes (Class 0 = Negative &lt;0.10 kU/L)</div>
+                
+                <h3 style="color: #cbd5e1; margin: 20px 0 15px 0; font-size: 16px;">Environmental Allergens</h3>
+                <div class="allergy-list">
+                    <div class="allergy-item">
+                        <div class="allergy-name">Dust Mites (D. pteronyssinus)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Dust Mites (D. farinae)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cat Dander</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Dog Dander</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cockroach (German)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cockroach (American)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: #cbd5e1; margin: 20px 0 15px 0; font-size: 16px;">Grass Allergens</h3>
+                <div class="allergy-list">
+                    <div class="allergy-item">
+                        <div class="allergy-name">Bermuda Grass</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Timothy Grass</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Johnson Grass</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Rye Grass (Perennial)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Bahia Grass</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: #cbd5e1; margin: 20px 0 15px 0; font-size: 16px;">Tree Allergens</h3>
+                <div class="allergy-list">
+                    <div class="allergy-item">
+                        <div class="allergy-name">Alder (Grey)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cedar (Mountain)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cedar (Red)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Oak (White)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Elm (American)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Ash (White)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Hickory (White)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Birch (Common Silver)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cottonwood</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Walnut</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">White Mulberry</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Sweet Gum</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Maple/Box Elder</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Bayberry/Sweet Gale</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: #cbd5e1; margin: 20px 0 15px 0; font-size: 16px;">Weed Allergens</h3>
+                <div class="allergy-list">
+                    <div class="allergy-item">
+                        <div class="allergy-name">Ragweed</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Mugwort</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Lamb's Quarters</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Sagebrush</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Tumbleweed (Russian Thistle)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: #cbd5e1; margin: 20px 0 15px 0; font-size: 16px;">Mold Allergens</h3>
+                <div class="allergy-list">
+                    <div class="allergy-item">
+                        <div class="allergy-name">Aspergillus fumigatus</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Candida albicans</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Cladosporium herbarum</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Penicillium notatum</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                </div>
+                
+                <h3 style="color: #cbd5e1; margin: 20px 0 15px 0; font-size: 16px;">Food Allergens</h3>
+                <div class="allergy-list">
+                    <div class="allergy-item">
+                        <div class="allergy-name">Peanut</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Tree Nut (Almond)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Tree Nut (Cashew)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Tree Nut (Walnut)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Milk (Cow)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Egg (Chicken)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Soy</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Wheat</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Sesame</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Shellfish (Shrimp)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Shellfish (Crab)</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                    <div class="allergy-item">
+                        <div class="allergy-name">Fish</div>
+                        <div class="allergy-result">Class 0 (Negative) - &lt;0.10 kU/L</div>
+                    </div>
+                </div>
+                
+                <div class="notes">
+                    <strong>Summary:</strong> Comprehensive allergen panel shows <strong>no detectable IgE antibodies to any tested allergens</strong>. Total IgE is low (9 IU/mL, normal &lt;100). This indicates no allergic sensitization to common environmental, food, or inhalant allergens. Patient is not at risk for typical allergic reactions from these common sources.
+                </div>
+            </div>
+        </div>
+        
+        <!-- GENETIC TAB -->
+        <div id="genetic" class="tab-content">
+            <div class="section">
+                <div class="section-title">Genetic Profile & Pharmacogenomics</div>
+                   
+                <div class="genetic-section">
+                    <div class="genetic-title">Hemochromatosis Risk (HFE Gene - CRITICAL)</div>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">HFE C282Y Variant</div>
+                            <div class="genetic-result" style="color: #ff6b6b; font-weight: 700;">Heterozygous Carrier (1 copy) ⚠️</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">HFE H63D Variant</div>
+                            <div class="genetic-result">Negative</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Clinical Risk</div>
+                            <div class="genetic-result" style="color: #ffd43b;">Carrier status - Low to moderate risk. Requires iron monitoring.</div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="genetic-section">
+                    <div class="genetic-title">MTHFR Status (Methylenetetrahydrofolate Reductase)</div>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">C677T Variant</div>
+                            <div class="genetic-result">Heterozygous (CT)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">A1298C Variant</div>
+                            <div class="genetic-result">Heterozygous (AC)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Clinical Significance</div>
+                            <div class="genetic-result">Mild reduction in enzyme activity (~65% of normal)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="genetic-section">
+                    <div class="genetic-title">Coagulation Testing (01/16/2026) — Tested following Hemarthrosis</div>
+                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Factor V Leiden and Antiphospholipid antibodies tested to evaluate potential coagulopathy following joint bleeding.</p>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor V Leiden (R506Q Mutation)</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative (Normal/Normal) ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Clinical Interpretation</div>
+                            <div class="genetic-result">No mutation detected. Patient does not have Factor V Leiden thrombophilia.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="genetic-section">
+                    <div class="genetic-title">Antiphospholipid Antibody Panel (01/16/2026)</div>
+                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Comprehensive panel to rule out antiphospholipid syndrome (APS) as cause of bleeding/clotting abnormalities.</p>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">Cardiolipin Ab IgG</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Cardiolipin Ab IgM</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Cardiolipin Ab IgA</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Beta-2 Glycoprotein IgG</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Beta-2 Glycoprotein IgM</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Beta-2 Glycoprotein IgA</div>
+                            <div class="genetic-result" style="color: #72FCC1;">Negative ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Panel Interpretation</div>
+                            <div class="genetic-result">All antiphospholipid antibodies negative. No evidence of antiphospholipid syndrome.</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="genetic-section">
+                    <div class="genetic-title">Cardiovascular Risk (Thrombosis &amp; Hemostasis)</div>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor V Leiden</div>
+                            <div class="genetic-result">Negative (confirmed 01/16/2026)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor II Prothrombin G20210A</div>
+                            <div class="genetic-result">Negative</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">PAI-1 (Plasminogen Activator Inhibitor-1)</div>
+                            <div class="genetic-result">4G/5G Heterozygous</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Risk Assessment</div>
+                            <div class="genetic-result">Low thrombotic risk; no major clotting disorders detected</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="genetic-section">
+                    <div class="genetic-title">Pharmacogenomics (Drug Metabolism)</div>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">CYP3A4 (Major Drug Metabolizer)</div>
+                            <div class="genetic-result">Normal Metabolizer (*1/*1)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">CYP2D6 (Antidepressant/Opioid Metabolism)</div>
+                            <div class="genetic-result">Normal Metabolizer (*1/*1)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">CYP2C19 (SSRI/Warfarin Metabolism)</div>
+                            <div class="genetic-result">Intermediate Metabolizer (*1/*2)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">TPMT (Thiopurine Metabolism)</div>
+                            <div class="genetic-result">Normal Activity</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">ALDH2 (Alcohol Metabolism)</div>
+                            <div class="genetic-result">Normal Metabolizer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="genetic-section">
+                    <div class="genetic-title">Other Notable Genetic Markers</div>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">ApoE (Apolipoprotein E)</div>
+                            <div class="genetic-result">ε3/ε3 (Normal lipid metabolism)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">ACE (Angiotensin-Converting Enzyme)</div>
+                            <div class="genetic-result">II Genotype (Associated with better cardiovascular fitness)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Lactase Persistence</div>
+                            <div class="genetic-result">CC Genotype (Lactose tolerant)</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">CETP (Cholesterol Ester Transfer Protein)</div>
+                            <div class="genetic-result">TaqIB: BB Genotype (Associated with protective HDL levels)</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="notes">
+                    <strong>Summary:</strong> Genetic profile shows generally favorable markers with normal drug metabolism for most medications. MTHFR heterozygous status (both variants) suggests mild reduction in methylation capacity but not clinically significant. <strong>Coagulation workup (01/16/2026):</strong> Factor V Leiden negative and full Antiphospholipid panel negative — no inherited thrombophilia or APS detected. These tests were performed following hemarthrosis finding. Lipid metabolism markers (ApoE ε3/ε3, ACE II, CETP BB) are associated with better cardiovascular health outcomes. CYP2C19 intermediate metabolizer status may warrant dose adjustments for certain SSRIs or warfarin if prescribed.
+                </div>
+            </div>
+        </div>
+        
+        <!-- TRENDS TAB -->
+        <div id="trends" class="tab-content">
+            <div class="section">
+                <div class="section-title">Health Trends &amp; Longitudinal Analysis</div>
+                
+                <div class="grid">
+                    <div class="chart-card">
+                        <div class="chart-title">Glucose Trend (2017-2026)</div>
+                        <canvas id="glucoseChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-title">Liver Enzymes Trend (AST, ALT, ALP)</div>
+                        <canvas id="liverChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-title">Kidney Function (Creatinine, eGFR)</div>
+                        <canvas id="kidneyChart"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <div class="chart-title">Blood Cell Counts (Hemoglobin, Hematocrit)</div>
+                        <canvas id="cbcChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <div class="section-title">Key Alerts &amp; Clinical Notes</div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Alert Type</th>
+                                <th>Date</th>
+                                <th>Finding</th>
+                                <th>Current Status</th>
+                                <th>Action Taken/Recommended</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="status-badge status-high">CRITICAL</span></td>
+                                <td>01/04/2026</td>
+                                <td>Hemarthrosis - Right Elbow (RBC 3.2M, Neutrophils 68%)</td>
+                                <td><span class="status-badge status-alert">INVESTIGATE</span></td>
+                                <td>Synovial fluid shows significant bleeding into joint. Factor V Leiden and Antiphospholipid panel both negative. Cause undetermined; requires rheumatology/hematology follow-up.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                                <td>11/18/2024</td>
+                                <td>AST &amp; ALT Significantly Elevated (62, 95 IU/L)</td>
+                                <td><span class="status-badge status-normal">Resolved</span></td>
+                                <td>Dramatic improvement by 07/2025; likely temporary inflammation, possible viral hepatitis or medication reaction. Recommend repeat testing if elevation recurs.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                                <td>08/28/2018</td>
+                                <td>Total Bilirubin Elevated (1.5 mg/dL)</td>
+                                <td><span class="status-badge status-normal">Resolved</span></td>
+                                <td>Normalized by 2020; likely Gilbert's Syndrome or benign hyperbilirubinemia. No further action needed.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-alert">MODERATE</span></td>
+                                <td>01/19/2026</td>
+                                <td>LDH Total Elevated (231 IU/L, ref 121-224)</td>
+                                <td><span class="status-badge status-alert">MONITOR</span></td>
+                                <td>LD isoenzyme fractions all normal — rules out acute MI, hemolysis, and active liver/muscle damage. Mild elevation may be benign. Continue monitoring.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-alert">MODERATE</span></td>
+                                <td>07/17/2025 - Present</td>
+                                <td>BUN Slightly Elevated (13-17 mg/dL)</td>
+                                <td><span class="status-badge status-alert">MONITOR</span></td>
+                                <td>Mild elevation; ensure adequate hydration. Can indicate dehydration or early kidney stress. Creatinine and eGFR normal, so kidney function preserved.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-normal">INFO</span></td>
+                                <td>08/28/2018</td>
+                                <td>Vitamin B12 Elevated (1728 pg/mL, ref 232-1245)</td>
+                                <td><span class="status-badge status-normal">Unchanged</span></td>
+                                <td>Suggests B12 supplementation; no pathology. Continue supplementation if clinically indicated. Recheck if symptoms of deficiency emerge.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-normal">INFO</span></td>
+                                <td>11/18/2024 - Present</td>
+                                <td>Hepatitis B Immunity Confirmed (34415 mIU/mL)</td>
+                                <td><span class="status-badge status-normal">Protected</span></td>
+                                <td>Strong protective antibody titers from vaccination. No booster needed at this time. Recommend checking immunity status again in 10 years.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ARCHIVE TAB -->
+        <div id="archive" class="tab-content">
+            <div class="section">
+                <div class="section-title">Data Archive &amp; Historical Records</div>
+                <p style="color: #cbd5e1; margin-bottom: 20px;">Complete list of all tests performed from 2017-2026, organized by date.</p>
+                
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Test Date</th>
+                                <th>Test Type</th>
+                                <th>Number of Tests</th>
+                                <th>Key Results</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>12/18/2017</strong></td>
+                                <td>CBC, CMP, Lipids</td>
+                                <td>26 tests</td>
+                                <td>All normal; baseline established</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>08/28/2018</strong></td>
+                                <td>CBC, CMP, Liver, Allergen IgE</td>
+                                <td>32 tests</td>
+                                <td>Bilirubin elevated (1.5); B12 elevated (1728); allergies negative</td>
+                                <td><span class="status-badge status-alert">ALERT</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>02/07/2020</strong></td>
+                                <td>Renal Panel, Electrolytes, UA</td>
+                                <td>18 tests</td>
+                                <td>Kidney function normal; bilirubin normalized</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>04/27/2023</strong></td>
+                                <td>Allergen-Specific IgE (Focused)</td>
+                                <td>12 tests</td>
+                                <td>All allergens negative; low total IgE</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>11/18/2024</strong></td>
+                                <td>Rheumatology Panel, CBC, Immune</td>
+                                <td>48 tests</td>
+                                <td>AST, ALT significantly elevated (62, 95); all autoimmune negative</td>
+                                <td><span class="status-badge status-high">HIGH ALERT</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>07/17/2025</strong></td>
+                                <td>CBC, CMP, Lipids</td>
+                                <td>28 tests</td>
+                                <td>Liver enzymes normalized; all values improved</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>01/04/2026</strong></td>
+                                <td>Synovial Fluid Analysis (Right Elbow)</td>
+                                <td>5 tests</td>
+                                <td>Hemarthrosis detected; RBC 3.2M, elevated neutrophils</td>
+                                <td><span class="status-badge status-high">CRITICAL</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>01/12/2026</strong></td>
+                                <td>C1 Esterase, Tryptase, Complement</td>
+                                <td>3 tests</td>
+                                <td>All within normal limits; no angioedema or mast cell disorder</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>01/16/2026</strong></td>
+                                <td>Factor V Leiden, Antiphospholipid Panel</td>
+                                <td>8 tests</td>
+                                <td>All negative; no thrombophilia or APS detected</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr style="background: rgba(56, 248, 242, 0.1);">
+                                <td><strong>01/19/2026</strong></td>
+                                <td>LDH Isoenzymes (LD Fractions)</td>
+                                <td>6 tests</td>
+                                <td>LDH Total elevated (231); all fractions normal distribution</td>
+                                <td><span class="status-badge status-alert">MONITOR</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="notes" style="margin-top: 30px;">
+                    <strong>Archive Summary:</strong> Medical records spanning 9 years (2017-2026) show overall good health trajectory with one significant finding in January 2026: hemarthrosis (bleeding in right elbow joint) detected via synovial fluid analysis. Extensive coagulation workup (Factor V Leiden, Antiphospholipid panel) returned normal, ruling out common clotting disorders. Liver enzyme elevation from Nov 2024 fully resolved. Genetic screening reveals no major disease risk factors. C1/Tryptase testing normal, ruling out angioedema disorders. Current status: Hemarthrosis requires ongoing investigation; LDH monitoring recommended.
+                </div>
+            </div>
+        </div>
+    </div>
+        
+    <script>
+        function switchTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Initialize charts if on trends tab
+            if (tabName === 'trends') {
+                setTimeout(initializeCharts, 100);
+            }
+        }
+        
+        function selectDate(element, date) {
+            const items = document.querySelectorAll('.timeline-item');
+            items.forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+            console.log('Selected date:', date);
+        }
+        
+        function exportRecord() {
+            window.print();
+        }
+        
+        function initializeCharts() {
+            // Glucose Trend Chart
+            if (document.getElementById('glucoseChart').chart) return;
+            
+            const glucoseCtx = document.getElementById('glucoseChart').getContext('2d');
+            new Chart(glucoseCtx, {
+                type: 'line',
+                data: {
+                    labels: ['12/2017', '08/2018', '02/2020', '11/2024', '07/2025', '01/2026'],
+                    datasets: [{
+                        label: 'Glucose (mg/dL)',
+                        data: [90, 86, 92, 90, 87, 77],
+                        borderColor: '#38bdf8',
+                        backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        tension: 0.3,
+                        fill: true,
+                        borderWidth: 2,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#38bdf8',
+                        pointBorderColor: '#0f172a',
+                        pointBorderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            min: 60,
+                            max: 110,
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    }
+                }
+            });
+            
+            // Liver Enzymes Chart
+            const liverCtx = document.getElementById('liverChart').getContext('2d');
+            new Chart(liverCtx, {
+                type: 'line',
+                data: {
+                    labels: ['08/2018', '02/2020', '11/2024', '07/2025', '01/2026'],
+                    datasets: [
+                        {
+                            label: 'AST (IU/L)',
+                            data: [37, null, 62, 31, 27],
+                            borderColor: '#ff6b6b',
+                            backgroundColor: 'rgba(255, 107, 107, 0.1)',
+                            tension: 0.3,
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#ff6b6b'
+                        },
+                        {
+                            label: 'ALT (IU/L)',
+                            data: [24, null, 95, 30, null],
+                            borderColor: '#ffd43b',
+                            backgroundColor: 'rgba(255, 212, 59, 0.1)',
+                            tension: 0.3,
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#ffd43b'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#cbd5e1' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    }
+                }
+            });
+            
+            // Kidney Function Chart
+            const kidneyCtx = document.getElementById('kidneyChart').getContext('2d');
+            new Chart(kidneyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['12/2017', '08/2018', '02/2020', '11/2024', '07/2025', '01/2026'],
+                    datasets: [
+                        {
+                            label: 'Creatinine (mg/dL)',
+                            data: [1.00, 1.06, 1.02, 1.14, 1.14, 1.02],
+                            borderColor: '#51cf66',
+                            backgroundColor: 'rgba(81, 207, 102, 0.1)',
+                            tension: 0.3,
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#51cf66'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            min: 0.8,
+                            max: 1.3,
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    }
+                }
+            });
+            
+            // CBC Chart
+            const cbcCtx = document.getElementById('cbcChart').getContext('2d');
+            new Chart(cbcCtx, {
+                type: 'line',
+                data: {
+                    labels: ['12/2017', '08/2018', '11/2024', '07/2025'],
+                    datasets: [
+                        {
+                            label: 'Hemoglobin (g/dL)',
+                            data: [13.8, 13.4, 13.5, 14.1],
+                            borderColor: '#38bdf8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                            tension: 0.3,
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#38bdf8'
+                        },
+                        {
+                            label: 'Hematocrit (%)',
+                            data: [40.0, 38.4, 40.2, 42.7],
+                            borderColor: '#51cf66',
+                            backgroundColor: 'rgba(81, 207, 102, 0.1)',
+                            tension: 0.3,
+                            borderWidth: 2,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#51cf66'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: { color: '#cbd5e1' }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            min: 30,
+                            max: 50,
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        },
+                        x: {
+                            ticks: { color: '#cbd5e1' },
+                            grid: { color: 'rgba(148, 163, 184, 0.1)' }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

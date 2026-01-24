@@ -1,0 +1,14 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Source files (keep only public for deployment)
+*.pdf
+extracted_records.txt
+
+# Editor
+.vscode/
+.idea/
+
+# Dependencies
+node_modules/
