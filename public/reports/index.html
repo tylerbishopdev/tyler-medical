@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Lab Reports | Tyler Bishop Medical Records</title>
+    <style>
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+                 url('../fonts/Satoshi-Variable.woff') format('woff');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(15deg, #0D0E0E 0%, #0E0E0E 100%);
+            color: #ACEBE6;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: medium;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #38bdf8; text-decoration: none; margin-bottom: 20px; font-size: 14px; }
+        .back-link:hover { color: #7dd3fc; }
+
+        .page-header {
+            background: rgba(35 48 49 / 0.17);
+            border: 1px solid rgba(0 229 255 / 0.27);
+            padding: 30px;
+            border-radius: 9px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(100px);
+            box-shadow: 0 0 7px 0 rgba(124 163 167 / 0.3);
+        }
+
+        .page-header h1 { font-size: 28px; font-weight: 600; color: #1CFFE1; margin-bottom: 10px; }
+        .page-header p { color: #94a3b8; }
+
+        .year-section { margin-bottom: 30px; }
+        .year-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #38F8F2;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(56 248 242 / 0.3);
+        }
+
+        .reports-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; }
+
+        .report-card {
+            background: rgba(30 59 56 / 0.6);
+            border: 1px solid rgba(94 180 167 / 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .report-card:hover {
+            border-color: rgba(56 248 242 / 0.4);
+            background: rgba(37 157 139 / 0.2);
+            transform: translateY(-2px);
+        }
+
+        .report-date { font-size: 12px; color: #0EFFFF; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 5px; }
+        .report-title { font-size: 16px; font-weight: 600; color: #A7E2EC; margin-bottom: 8px; }
+        .report-desc { font-size: 13px; color: #94a3b8; }
+
+        .status-badge { display: inline-block; padding: 3px 10px; border-radius: 15px; font-size: 10px; font-weight: 600; margin-top: 10px; }
+        .status-normal { background: rgba(41 134 100 / 0.2); color: #72FCC1; }
+        .status-alert { background: rgba(255 119 7 / 0.2); color: #FFAA3B; }
+        .status-critical { background: rgba(255 107 107 / 0.2); color: #FF8989; }
+
+        @media (max-width: 768px) {
+            .reports-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="page-header">
+            <h1>All Lab Reports</h1>
+            <p>Complete archive of individual lab reports from 2017-2026, each displaying the full report as it appears from the lab.</p>
+        </div>
+
+        <!-- 2026 -->
+        <div class="year-section">
+            <div class="year-title">2026</div>
+            <div class="reports-grid">
+                <a href="2026-01-19-ldh-isoenzymes.html" class="report-card">
+                    <div class="report-date">January 19, 2026</div>
+                    <div class="report-title">LDH Isoenzymes (LD Fractions)</div>
+                    <div class="report-desc">Follow-up fractionation to determine tissue source of elevated LDH</div>
+                    <span class="status-badge status-alert">MONITOR</span>
+                </a>
+                <a href="2026-01-16-cbc-cmp.html" class="report-card">
+                    <div class="report-date">January 16, 2026</div>
+                    <div class="report-title">CBC, CMP, ESR, CRP</div>
+                    <div class="report-desc">Complete blood count, metabolic panel, inflammatory markers</div>
+                    <span class="status-badge status-normal">NORMAL</span>
+                </a>
+                <a href="2026-01-16-tryptase-c1.html" class="report-card">
+                    <div class="report-date">January 16, 2026</div>
+                    <div class="report-title">Tryptase, C1 Esterase Inhibitor</div>
+                    <div class="report-desc">Angioedema and mast cell disorder evaluation</div>
+                    <span class="status-badge status-normal">NORMAL</span>
+                </a>
+                <a href="2026-01-16-coagulation.html" class="report-card">
+                    <div class="report-date">January 16, 2026</div>
+                    <div class="report-title">Coagulation Panel</div>
+                    <div class="report-desc">Factor V Leiden and Antiphospholipid antibody testing</div>
+                    <span class="status-badge status-normal">NEGATIVE</span>
+                </a>
+                <a href="2026-01-16-urinalysis.html" class="report-card">
+                    <div class="report-date">January 16, 2026</div>
+                    <div class="report-title">Urinalysis, LDH, GGT</div>
+                    <div class="report-desc">Urinalysis with liver enzymes</div>
+                    <span class="status-badge status-alert">LDH HIGH</span>
+                </a>
+                <a href="2026-01-12-c1-tryptase.html" class="report-card">
+                    <div class="report-date">January 12, 2026</div>
+                    <div class="report-title">C1 Esterase, Tryptase, Complement</div>
+                    <div class="report-desc">Initial angioedema workup following hemarthrosis</div>
+                    <span class="status-badge status-normal">NORMAL</span>
+                </a>
+                <a href="2026-01-04-synovial.html" class="report-card">
+                    <div class="report-date">January 4, 2026</div>
+                    <div class="report-title">Synovial Fluid Analysis - Right Elbow</div>
+                    <div class="report-desc">Critical finding: Hemarthrosis detected with elevated RBCs</div>
+                    <span class="status-badge status-critical">CRITICAL</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2025 -->
+        <div class="year-section">
+            <div class="year-title">2025</div>
+            <div class="reports-grid">
+                <a href="2025-07-17-cbc-cmp.html" class="report-card">
+                    <div class="report-date">July 17, 2025</div>
+                    <div class="report-title">CBC, CMP, Lipids</div>
+                    <div class="report-desc">Complete blood count, metabolic panel - liver enzymes normalized</div>
+                    <span class="status-badge status-normal">NORMAL</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2024 -->
+        <div class="year-section">
+            <div class="year-title">2024</div>
+            <div class="reports-grid">
+                <a href="2024-11-18-rheumatology.html" class="report-card">
+                    <div class="report-date">November 18, 2024</div>
+                    <div class="report-title">Rheumatology Panel</div>
+                    <div class="report-desc">Comprehensive autoimmune screening, CBC, liver function</div>
+                    <span class="status-badge status-alert">AST/ALT HIGH</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2023 -->
+        <div class="year-section">
+            <div class="year-title">2023</div>
+            <div class="reports-grid">
+                <a href="2023-04-27-allergies.html" class="report-card">
+                    <div class="report-date">April 27, 2023</div>
+                    <div class="report-title">Focused Allergen Panel</div>
+                    <div class="report-desc">Follow-up allergen-specific IgE testing</div>
+                    <span class="status-badge status-normal">ALL NEGATIVE</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2020 -->
+        <div class="year-section">
+            <div class="year-title">2020</div>
+            <div class="reports-grid">
+                <a href="2020-02-07-renal.html" class="report-card">
+                    <div class="report-date">February 7, 2020</div>
+                    <div class="report-title">Renal Panel, Electrolytes, UA</div>
+                    <div class="report-desc">Kidney function assessment</div>
+                    <span class="status-badge status-normal">NORMAL</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2018 -->
+        <div class="year-section">
+            <div class="year-title">2018</div>
+            <div class="reports-grid">
+                <a href="2018-08-28-allergies.html" class="report-card">
+                    <div class="report-date">August 28, 2018</div>
+                    <div class="report-title">Allergy Panel, CBC, CMP</div>
+                    <div class="report-desc">Comprehensive allergen IgE testing, blood count, metabolic panel</div>
+                    <span class="status-badge status-normal">ALL NEGATIVE</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- 2017 -->
+        <div class="year-section">
+            <div class="year-title">2017</div>
+            <div class="reports-grid">
+                <a href="2017-12-18-baseline.html" class="report-card">
+                    <div class="report-date">December 18, 2017</div>
+                    <div class="report-title">Baseline Labs</div>
+                    <div class="report-desc">Initial baseline - CBC, CMP, Lipids</div>
+                    <span class="status-badge status-normal">BASELINE</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

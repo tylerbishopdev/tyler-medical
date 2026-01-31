@@ -350,6 +350,12 @@
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+
+        a.timeline-item {
+            text-decoration: none;
         }
         
         .timeline-item:hover {
@@ -608,6 +614,10 @@
             </div>
             <div class="header-actions">
                 <div class="privacy-badge">PUBLIC On Purpose</div>
+                <a href="reports/index.html" class="export-btn" style="text-decoration: none;">
+                    <span>📄</span>
+                    <span>View Lab Reports</span>
+                </a>
                 <button class="export-btn" onclick="exportRecord()">
                     <span>📥</span>
                     <span>Export Raw Data</span>
@@ -632,47 +642,48 @@
             <div class="section">
                 <div class="section-title">Test History Timeline</div>
                 <div class="timeline">
-                    <div class="timeline-item active" onclick="selectDate(this, '12/18/2017')">
+                    <a href="reports/2017-12-18-baseline.html" class="timeline-item">
                         <div class="timeline-date">12/18/2017</div>
                         <div class="timeline-label">CBC, CMP, Lipids</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '08/28/2018')">
+                    </a>
+                    <a href="reports/2018-08-28-allergies.html" class="timeline-item">
                         <div class="timeline-date">08/28/2018</div>
                         <div class="timeline-label">Allergies, CBC, CMP</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '02/07/2020')">
+                    </a>
+                    <a href="reports/2020-02-07-renal.html" class="timeline-item">
                         <div class="timeline-date">02/07/2020</div>
                         <div class="timeline-label">Renal Panel, UA</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '04/27/2023')">
+                    </a>
+                    <a href="reports/2023-04-27-allergies.html" class="timeline-item">
                         <div class="timeline-date">04/27/2023</div>
                         <div class="timeline-label">Allergens</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '11/18/2024')">
+                    </a>
+                    <a href="reports/2024-11-18-rheumatology.html" class="timeline-item">
                         <div class="timeline-date">11/18/2024</div>
                         <div class="timeline-label">Rheumatology Panel</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '07/17/2025')">
+                    </a>
+                    <a href="reports/2025-07-17-cbc-cmp.html" class="timeline-item">
                         <div class="timeline-date">07/17/2025</div>
                         <div class="timeline-label">CBC, CMP</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '01/04/2026')">
-                        <div class="timeline-date">01/04/2026</div>
+                    </a>
+                    <a href="reports/2026-01-04-synovial.html" class="timeline-item" style="border-color: rgba(255 107 107 / 0.4);">
+                        <div class="timeline-date" style="color: #FF8989;">01/04/2026</div>
                         <div class="timeline-label">Synovial Fluid</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '01/12/2026')">
+                    </a>
+                    <a href="reports/2026-01-12-c1-tryptase.html" class="timeline-item">
                         <div class="timeline-date">01/12/2026</div>
                         <div class="timeline-label">C1, Tryptase</div>
-                    </div>
-                    <div class="timeline-item" onclick="selectDate(this, '01/16/2026')">
+                    </a>
+                    <a href="reports/2026-01-16-cbc-cmp.html" class="timeline-item active">
                         <div class="timeline-date">01/16/2026</div>
                         <div class="timeline-label">CBC, CMP, Coag, UA</div>
-                    </div>
-                    <div class="timeline-item active" onclick="selectDate(this, '01/19/2026')">
+                    </a>
+                    <a href="reports/2026-01-19-ldh-isoenzymes.html" class="timeline-item">
                         <div class="timeline-date">01/19/2026</div>
                         <div class="timeline-label">LDH Isoenzymes</div>
-                    </div>
+                    </a>
                 </div>
+                <p style="color: #64868B; font-size: 12px; margin-top: 10px;">Click any date to view the full lab report. <a href="reports/index.html" style="color: #38bdf8;">View all reports →</a></p>
             </div>
             
             <div class="section">

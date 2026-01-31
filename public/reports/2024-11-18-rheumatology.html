@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report: November 18, 2024 - Rheumatology Panel | Tyler Bishop</title>
+    <style>
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+                 url('../fonts/Satoshi-Variable.woff') format('woff');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(15deg, #0D0E0E 0%, #0E0E0E 100%);
+            color: #ACEBE6;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: medium;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #38bdf8;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .back-link:hover { color: #7dd3fc; }
+
+        .report-header {
+            background: rgba(35 48 49 / 0.17);
+            border: 1px solid rgba(0 229 255 / 0.27);
+            padding: 25px;
+            border-radius: 9px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(100px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 0 7px 0 rgba(124 163 167 / 0.3);
+        }
+
+        .report-header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1CFFE1;
+            margin-bottom: 8px;
+        }
+
+        .report-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            background: rgba(36 143 136 / 0.3);
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(148 184 180 / 0.3);
+        }
+
+        .meta-label { font-size: 11px; color: #0EFFFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        .meta-value { font-size: 15px; font-weight: 600; color: #A7E2EC; }
+
+        .lab-badge {
+            background: #0629305F;
+            color: #ADECEA;
+            border: 1px solid #36FFF8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .section {
+            background: rgba(30 59 56 / 0.6);
+            border: 1px solid rgba(94 180 167 / 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #38F8F2;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(56 248 242 / 0.3);
+        }
+
+        .alert-box {
+            background: rgba(255 170 59 / 0.15);
+            border: 1px solid rgba(255 170 59 / 0.4);
+            border-left: 4px solid #FFAA3B;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #FFAA3B;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        thead { background: rgba(2 23 23 / 0.5); }
+        th { padding: 12px; text-align: left; color: #86DFD3; font-weight: 600; border-bottom: 2px solid rgba(56 248 223 / 0.2); font-size: 12px; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid rgba(148, 163, 184, 0.1); color: #e2e8f0; font-size: 14px; }
+        tr:hover { background: rgba(56, 189, 248, 0.05); }
+
+        .flag-high { color: #ff6b6b; font-weight: 600; }
+
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .status-normal { background: rgba(41 134 100 / 0.2); color: #72FCC1; }
+        .status-high { background: rgba(135 40 40 / 0.2); color: #FF8989; }
+
+        .notes {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 3px solid #38bdf8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .patient-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .detail-block h4 { color: #86DFD3; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; }
+        .detail-block p { font-size: 13px; color: #94a3b8; margin-bottom: 5px; }
+
+        @media (max-width: 768px) {
+            .report-header { flex-direction: column; gap: 15px; }
+            .report-meta, .patient-details { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="report-header">
+            <div>
+                <h1>Patient Report - Rheumatology Panel</h1>
+                <p style="color: #94a3b8;">Comprehensive Autoimmune, Infectious Disease & CBC Panel</p>
+                <div class="report-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Patient</div>
+                        <div class="meta-value">Tyler Bishop</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Date Collected</div>
+                        <div class="meta-value">11/18/2024</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Total Tests</div>
+                        <div class="meta-value">48 Tests</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">DOB</div>
+                        <div class="meta-value">05/26/1987</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Age / Sex</div>
+                        <div class="meta-value">37 / Male</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Fasting</div>
+                        <div class="meta-value">Yes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-badge">Labcorp</div>
+        </div>
+
+        <div class="alert-box">
+            <strong>ALERT:</strong> AST and ALT were significantly elevated on this date (62 and 95 IU/L respectively). These values normalized by July 2025 - see follow-up reports.
+        </div>
+
+        <!-- Liver Function with Alert -->
+        <div class="section" style="border-color: rgba(255 107 107 / 0.3);">
+            <div class="section-title" style="color: #FF8989;">Liver Function Panel - ALERT VALUES</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Flag</th>
+                        <th>Units</th>
+                        <th>Reference Interval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>AST (SGOT)</td>
+                        <td class="flag-high">62</td>
+                        <td><span class="status-badge status-high">HIGH</span></td>
+                        <td>IU/L</td>
+                        <td>0-40</td>
+                    </tr>
+                    <tr>
+                        <td>ALT (SGPT)</td>
+                        <td class="flag-high">95</td>
+                        <td><span class="status-badge status-high">HIGH</span></td>
+                        <td>IU/L</td>
+                        <td>0-44</td>
+                    </tr>
+                    <tr>
+                        <td>Alkaline Phosphatase</td>
+                        <td>79</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>IU/L</td>
+                        <td>44-121</td>
+                    </tr>
+                    <tr>
+                        <td>Bilirubin, Total</td>
+                        <td>1.1</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>mg/dL</td>
+                        <td>0.0-1.2</td>
+                    </tr>
+                    <tr>
+                        <td>Albumin</td>
+                        <td>4.7</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>g/dL</td>
+                        <td>4.1-5.1</td>
+                    </tr>
+                    <tr>
+                        <td>Total Protein</td>
+                        <td>6.6</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>g/dL</td>
+                        <td>6.0-8.5</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="notes" style="border-left-color: #51cf66; background: rgba(51 207 102 / 0.1);">
+                <strong>Resolution:</strong> Liver enzymes dramatically improved by July 2025 (AST 31, ALT 30) and fully normalized by January 2026 (AST 26, ALT 25). Likely cause: temporary inflammation, possible viral hepatitis or medication reaction.
+            </div>
+        </div>
+
+        <!-- Infectious Disease Panel -->
+        <div class="section">
+            <div class="section-title">Infectious Disease Screening</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>HBsAg (Hepatitis B Surface Antigen)</td>
+                        <td>Negative</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>Negative</td>
+                    </tr>
+                    <tr>
+                        <td>HCV Ab (Hepatitis C Antibody)</td>
+                        <td>Non Reactive</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>Non Reactive</td>
+                    </tr>
+                    <tr>
+                        <td>Hepatitis B Core Ab, Total</td>
+                        <td>Negative</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>Negative</td>
+                    </tr>
+                    <tr>
+                        <td>Hepatitis B Surf Ab Quant</td>
+                        <td>34,415 mIU/mL</td>
+                        <td><span class="status-badge status-normal">Immune</span></td>
+                        <td>&gt;10 (Immunity)</td>
+                    </tr>
+                    <tr>
+                        <td>QuantiFERON-TB Gold Plus</td>
+                        <td>Negative</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>Negative</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="notes">
+                <strong>Summary:</strong> No active hepatitis B or C infection. Strong Hepatitis B immunity from vaccination (34,415 mIU/mL - very high protective titer). TB screening negative.
+            </div>
+        </div>
+
+        <!-- Autoimmune Panel -->
+        <div class="section">
+            <div class="section-title">Autoimmune Markers</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Rheumatoid Factor (RF)</td>
+                        <td>&lt;10.0 IU/mL</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>&lt;14.0</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-CCP Antibody</td>
+                        <td>&lt;20 Units</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>&lt;20</td>
+                    </tr>
+                    <tr>
+                        <td>Antinuclear Antibody (ANA)</td>
+                        <td>Negative</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>Negative</td>
+                    </tr>
+                    <tr>
+                        <td>Sjogren's Anti-SS-A</td>
+                        <td>&lt;0.2 AI</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>0.0-0.9</td>
+                    </tr>
+                    <tr>
+                        <td>Sjogren's Anti-SS-B</td>
+                        <td>&lt;0.2 AI</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>0.0-0.9</td>
+                    </tr>
+                    <tr>
+                        <td>Smith Antibodies</td>
+                        <td>&lt;0.2 AI</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>0.0-0.9</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-dsDNA Antibodies</td>
+                        <td>&lt;1 IU/mL</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>&lt;5 Negative</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-U1 RNP Antibody</td>
+                        <td>&lt;20 Units</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>&lt;20</td>
+                    </tr>
+                    <tr>
+                        <td>Anti-DFS70 Antibody</td>
+                        <td>&lt;20 Units</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>&lt;20</td>
+                    </tr>
+                    <tr>
+                        <td>HLA-B27</td>
+                        <td>Negative</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>Negative</td>
+                    </tr>
+                    <tr>
+                        <td>Celiac Disease (tTG IgA)</td>
+                        <td>&lt;2 U/mL</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>0-3</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="notes">
+                <strong>Summary:</strong> All autoimmune markers negative. No evidence of rheumatoid arthritis (RF/Anti-CCP negative), lupus (ANA/dsDNA negative), Sjogren's syndrome, or other connective tissue diseases. HLA-B27 negative rules out increased risk for ankylosing spondylitis. No celiac disease.
+            </div>
+        </div>
+
+        <!-- Complement -->
+        <div class="section">
+            <div class="section-title">Complement Levels</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                        <th>Units</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Complement C3, Serum</td>
+                        <td>93</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>mg/dL</td>
+                        <td>82-167</td>
+                    </tr>
+                    <tr>
+                        <td>Complement C4, Serum</td>
+                        <td>15</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>mg/dL</td>
+                        <td>12-38</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CBC -->
+        <div class="section">
+            <div class="section-title">Complete Blood Count (CBC)</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Status</th>
+                        <th>Units</th>
+                        <th>Reference</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>WBC</td>
+                        <td>4.8</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>x10E3/uL</td>
+                        <td>3.4-10.8</td>
+                    </tr>
+                    <tr>
+                        <td>RBC</td>
+                        <td>4.46</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>x10E6/uL</td>
+                        <td>4.14-5.80</td>
+                    </tr>
+                    <tr>
+                        <td>Hemoglobin</td>
+                        <td>13.5</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>g/dL</td>
+                        <td>13.0-17.7</td>
+                    </tr>
+                    <tr>
+                        <td>Hematocrit</td>
+                        <td>40.2</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>%</td>
+                        <td>37.5-51.0</td>
+                    </tr>
+                    <tr>
+                        <td>Platelets</td>
+                        <td>288</td>
+                        <td><span class="status-badge status-normal">Normal</span></td>
+                        <td>x10E3/uL</td>
+                        <td>150-450</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Patient Details -->
+        <div class="patient-details">
+            <div class="detail-block">
+                <h4>Patient Details</h4>
+                <p><strong>Bishop, Tyler</strong></p>
+                <p>3434 VOYAGER CIR, SAN DIEGO, CA, 92130</p>
+                <p>DOB: 05/26/1987 | Age: 37 | Sex: Male</p>
+            </div>
+            <div class="detail-block">
+                <h4>Test Summary</h4>
+                <p>Total Tests: 48</p>
+                <p>Date: 11/18/2024</p>
+                <p>Key Finding: Elevated AST/ALT (now resolved)</p>
+            </div>
+            <div class="detail-block">
+                <h4>Follow-up Reports</h4>
+                <p><a href="2025-07-17-cbc-cmp.html" style="color: #38bdf8;">07/17/2025 - CBC, CMP</a></p>
+                <p><a href="2026-01-16-cbc-cmp.html" style="color: #38bdf8;">01/16/2026 - CBC, CMP</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
