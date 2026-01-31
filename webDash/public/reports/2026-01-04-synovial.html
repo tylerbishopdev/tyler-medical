@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report: January 4, 2026 - Synovial Fluid Analysis | Tyler Bishop</title>
+    <style>
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+                 url('../fonts/Satoshi-Variable.woff') format('woff');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(15deg, #0D0E0E 0%, #0E0E0E 100%);
+            color: #ACEBE6;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: medium;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #38bdf8;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .back-link:hover { color: #7dd3fc; }
+
+        .report-header {
+            background: rgba(35 48 49 / 0.17);
+            border: 1px solid rgba(255 107 107 / 0.4);
+            padding: 25px;
+            border-radius: 9px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(100px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 0 15px 0 rgba(255 107 107 / 0.2);
+        }
+
+        .report-header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #FF8989;
+            margin-bottom: 8px;
+        }
+
+        .critical-badge {
+            background: rgba(255 107 107 / 0.2);
+            color: #FF8989;
+            border: 1px solid #FF8989;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .report-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            background: rgba(36 143 136 / 0.3);
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(148 184 180 / 0.3);
+        }
+
+        .meta-label { font-size: 11px; color: #0EFFFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        .meta-value { font-size: 15px; font-weight: 600; color: #A7E2EC; }
+
+        .section {
+            background: rgba(30 59 56 / 0.6);
+            border: 1px solid rgba(255 107 107 / 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FF8989;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255 107 107 / 0.3);
+        }
+
+        .alert-box {
+            background: rgba(255 107 107 / 0.15);
+            border: 1px solid rgba(255 107 107 / 0.4);
+            border-left: 4px solid #FF8989;
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #FFAA3B;
+        }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        thead { background: rgba(2 23 23 / 0.5); }
+        th { padding: 12px; text-align: left; color: #86DFD3; font-weight: 600; border-bottom: 2px solid rgba(56 248 223 / 0.2); font-size: 12px; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid rgba(148, 163, 184, 0.1); color: #e2e8f0; font-size: 14px; }
+        tr:hover { background: rgba(56, 189, 248, 0.05); }
+
+        .flag-high { color: #ff6b6b; font-weight: 600; }
+
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .status-normal { background: rgba(41 134 100 / 0.2); color: #72FCC1; }
+        .status-high { background: rgba(135 40 40 / 0.2); color: #FF8989; }
+        .status-critical { background: rgba(255 0 0 / 0.3); color: #FF6B6B; font-weight: 700; }
+
+        .notes {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 3px solid #38bdf8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .diagnosis-box {
+            background: rgba(255 107 107 / 0.1);
+            border: 1px solid rgba(255 107 107 / 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .diagnosis-box h3 {
+            color: #FF8989;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .diagnosis-box ul {
+            margin-left: 20px;
+            color: #cbd5e1;
+        }
+
+        .diagnosis-box li {
+            margin-bottom: 8px;
+        }
+
+        .patient-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .detail-block h4 { color: #86DFD3; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; }
+        .detail-block p { font-size: 13px; color: #94a3b8; margin-bottom: 5px; }
+
+        @media (max-width: 768px) {
+            .report-header { flex-direction: column; gap: 15px; }
+            .report-meta, .patient-details { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="report-header">
+            <div>
+                <h1>CRITICAL: Synovial Fluid Analysis - Right Elbow</h1>
+                <p style="color: #FFAA3B; font-weight: 600;">Hemarthrosis Detected - Significant Bleeding into Joint</p>
+                <div class="report-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Patient</div>
+                        <div class="meta-value">Tyler Bishop</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Date Collected</div>
+                        <div class="meta-value">01/04/2026</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Specimen Source</div>
+                        <div class="meta-value">Right Elbow</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">DOB</div>
+                        <div class="meta-value">05/26/1987</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Age / Sex</div>
+                        <div class="meta-value">38 / Male</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Status</div>
+                        <div class="meta-value" style="color: #FF8989;">CRITICAL</div>
+                    </div>
+                </div>
+            </div>
+            <div class="critical-badge">HEMARTHROSIS</div>
+        </div>
+
+        <div class="alert-box">
+            <strong>CLINICAL ALERT:</strong> This report indicates <strong>hemarthrosis</strong> (bleeding into the joint space) with extremely elevated RBC count. Immediate clinical correlation and follow-up recommended.
+        </div>
+
+        <!-- Synovial Fluid Results -->
+        <div class="section">
+            <div class="section-title">Synovial Fluid Analysis Results</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Flag</th>
+                        <th>Reference</th>
+                        <th>Significance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Appearance</td>
+                        <td class="flag-high">Bloody</td>
+                        <td><span class="status-badge status-high">ABNORMAL</span></td>
+                        <td>Clear</td>
+                        <td>Indicates blood in joint</td>
+                    </tr>
+                    <tr>
+                        <td>Color</td>
+                        <td class="flag-high">Red</td>
+                        <td><span class="status-badge status-high">ABNORMAL</span></td>
+                        <td>Yellow</td>
+                        <td>Confirms hemarthrosis</td>
+                    </tr>
+                    <tr>
+                        <td>RBC Count</td>
+                        <td class="flag-high" style="font-size: 16px;">3,197,000 /mcL</td>
+                        <td><span class="status-badge status-critical">CRITICAL HIGH</span></td>
+                        <td>&lt;2,000 /mcL</td>
+                        <td>Extremely elevated - 1598x normal</td>
+                    </tr>
+                    <tr>
+                        <td>Nucleated Cells</td>
+                        <td class="flag-high">2,570 /mcL</td>
+                        <td><span class="status-badge status-high">HIGH</span></td>
+                        <td>0-200 /mcL</td>
+                        <td>12x normal - inflammatory response</td>
+                    </tr>
+                    <tr>
+                        <td>Neutrophils</td>
+                        <td class="flag-high">68%</td>
+                        <td><span class="status-badge status-high">HIGH</span></td>
+                        <td>&lt;25%</td>
+                        <td>Elevated neutrophils suggest inflammation</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="diagnosis-box">
+            <h3>Clinical Interpretation: Hemarthrosis</h3>
+            <p style="color: #94a3b8; margin-bottom: 15px;">Hemarthrosis is bleeding into a joint cavity. This synovial fluid analysis shows:</p>
+            <ul>
+                <li><strong>Extremely elevated RBC (3.2 million/mcL):</strong> Normal is &lt;2,000 - indicating significant bleeding into the joint</li>
+                <li><strong>Bloody appearance and red color:</strong> Confirms gross blood in the synovial fluid</li>
+                <li><strong>Elevated nucleated cells (2,570/mcL):</strong> Inflammatory response to blood in the joint</li>
+                <li><strong>High neutrophils (68%):</strong> Acute inflammatory reaction to the hemarthrosis</li>
+            </ul>
+        </div>
+
+        <div class="notes" style="border-left-color: #FF8989; background: rgba(255 107 107 / 0.1);">
+            <strong>Follow-up Testing Completed (01/16/2026):</strong><br><br>
+            Extensive workup was performed to identify the cause of hemarthrosis:
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li><strong>Factor V Leiden:</strong> Negative - <a href="2026-01-16-coagulation.html" style="color: #38bdf8;">View Report</a></li>
+                <li><strong>Antiphospholipid Panel (all 6 antibodies):</strong> Negative - <a href="2026-01-16-coagulation.html" style="color: #38bdf8;">View Report</a></li>
+                <li><strong>C1 Esterase Inhibitor (serum & functional):</strong> Normal - <a href="2026-01-16-tryptase-c1.html" style="color: #38bdf8;">View Report</a></li>
+                <li><strong>Tryptase:</strong> Normal (5.9 ug/L) - rules out mast cell disorders</li>
+                <li><strong>ESR:</strong> 2 mm/hr - no systemic inflammation</li>
+                <li><strong>CRP:</strong> &lt;1 mg/L - no systemic inflammation</li>
+            </ul>
+            <br>
+            <strong style="color: #FFAA3B;">Cause remains undetermined.</strong> Possible etiologies include:
+            <ul style="margin-top: 10px; margin-left: 20px;">
+                <li>Trauma (may be unrecognized)</li>
+                <li>Unidentified coagulopathy not detected by standard panels</li>
+                <li>Pigmented villonodular synovitis (PVNS)</li>
+                <li>Vascular malformation</li>
+            </ul>
+            <br>
+            Continued rheumatology and/or hematology follow-up recommended.
+        </div>
+
+        <!-- Patient/Physician/Specimen Details -->
+        <div class="patient-details">
+            <div class="detail-block">
+                <h4>Patient Details</h4>
+                <p><strong>Bishop, Tyler</strong></p>
+                <p>3434 VOYAGER CIR, SAN DIEGO, CA, 92130</p>
+                <p>Phone: 636-448-1747</p>
+                <p>DOB: 05/26/1987 | Age: 38 | Sex: Male</p>
+            </div>
+            <div class="detail-block">
+                <h4>Specimen Details</h4>
+                <p>Source: Right Elbow (Synovial Fluid)</p>
+                <p>Date Collected: 01/04/2026</p>
+                <p>Test Type: Synovial Fluid Analysis</p>
+            </div>
+            <div class="detail-block">
+                <h4>Related Reports</h4>
+                <p><a href="2026-01-12-c1-tryptase.html" style="color: #38bdf8;">01/12/2026 - C1, Tryptase</a></p>
+                <p><a href="2026-01-16-coagulation.html" style="color: #38bdf8;">01/16/2026 - Coagulation Panel</a></p>
+                <p><a href="2026-01-16-cbc-cmp.html" style="color: #38bdf8;">01/16/2026 - CBC, CMP</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

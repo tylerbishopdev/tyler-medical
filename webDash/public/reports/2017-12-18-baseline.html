@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report: December 18, 2017 - Baseline Labs | Tyler Bishop</title>
+    <style>
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+                 url('../fonts/Satoshi-Variable.woff') format('woff');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(15deg, #0D0E0E 0%, #0E0E0E 100%);
+            color: #ACEBE6;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: medium;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .back-link { display: inline-flex; align-items: center; gap: 8px; color: #38bdf8; text-decoration: none; margin-bottom: 20px; font-size: 14px; }
+        .back-link:hover { color: #7dd3fc; }
+
+        .report-header {
+            background: rgba(35 48 49 / 0.17);
+            border: 1px solid rgba(0 229 255 / 0.27);
+            padding: 25px;
+            border-radius: 9px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(100px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 0 7px 0 rgba(124 163 167 / 0.3);
+        }
+
+        .report-header h1 { font-size: 22px; font-weight: 600; color: #1CFFE1; margin-bottom: 8px; }
+
+        .report-meta { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-top: 15px; }
+
+        .meta-item { background: rgba(36 143 136 / 0.3); padding: 10px 15px; border-radius: 6px; border: 1px solid rgba(148 184 180 / 0.3); }
+        .meta-label { font-size: 11px; color: #0EFFFF; text-transform: uppercase; letter-spacing: 0.5px; }
+        .meta-value { font-size: 15px; font-weight: 600; color: #A7E2EC; }
+
+        .lab-badge { background: #0629305F; color: #ADECEA; border: 1px solid #36FFF8; padding: 8px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; }
+
+        .section { background: rgba(30 59 56 / 0.6); border: 1px solid rgba(94 180 167 / 0.2); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+        .section-title { font-size: 18px; font-weight: 600; color: #38F8F2; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 2px solid rgba(56 248 242 / 0.3); }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        thead { background: rgba(2 23 23 / 0.5); }
+        th { padding: 12px; text-align: left; color: #86DFD3; font-weight: 600; border-bottom: 2px solid rgba(56 248 223 / 0.2); font-size: 12px; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid rgba(148, 163, 184, 0.1); color: #e2e8f0; font-size: 14px; }
+        tr:hover { background: rgba(56, 189, 248, 0.05); }
+
+        .status-badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+        .status-normal { background: rgba(41 134 100 / 0.2); color: #72FCC1; }
+
+        .notes { background: rgba(56, 189, 248, 0.1); border-left: 3px solid #38bdf8; padding: 15px; border-radius: 6px; margin-top: 15px; font-size: 13px; color: #cbd5e1; }
+
+        .patient-details { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(148, 163, 184, 0.2); }
+        .detail-block h4 { color: #86DFD3; font-size: 12px; text-transform: uppercase; margin-bottom: 10px; }
+        .detail-block p { font-size: 13px; color: #94a3b8; margin-bottom: 5px; }
+
+        @media (max-width: 768px) {
+            .report-header { flex-direction: column; gap: 15px; }
+            .report-meta, .patient-details { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="report-header">
+            <div>
+                <h1>Patient Report - Baseline Labs (2017)</h1>
+                <p style="color: #94a3b8;">Complete Blood Count, Comprehensive Metabolic Panel, Lipid Panel - Baseline Established</p>
+                <div class="report-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Patient</div>
+                        <div class="meta-value">Tyler Bishop</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Date Collected</div>
+                        <div class="meta-value">12/18/2017</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Total Tests</div>
+                        <div class="meta-value">26 Tests</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">DOB</div>
+                        <div class="meta-value">05/26/1987</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Age at Test</div>
+                        <div class="meta-value">30 / Male</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Status</div>
+                        <div class="meta-value" style="color: #72FCC1;">All Normal</div>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-badge">Baseline</div>
+        </div>
+
+        <div class="notes" style="background: rgba(51 207 102 / 0.1); border-left-color: #51cf66; margin-bottom: 20px;">
+            <strong>Baseline Established:</strong> This is the earliest record in the dataset. All values were within normal limits, establishing a healthy baseline for comparison with future tests.
+        </div>
+
+        <!-- CBC -->
+        <div class="section">
+            <div class="section-title">Complete Blood Count (CBC)</div>
+            <table>
+                <thead>
+                    <tr><th>Test</th><th>Result</th><th>Status</th><th>Units</th><th>Reference</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>WBC</td><td>5.1</td><td><span class="status-badge status-normal">Normal</span></td><td>x10E3/uL</td><td>3.4-10.8</td></tr>
+                    <tr><td>RBC</td><td>4.60</td><td><span class="status-badge status-normal">Normal</span></td><td>x10E6/uL</td><td>4.14-5.80</td></tr>
+                    <tr><td>Hemoglobin</td><td>13.8</td><td><span class="status-badge status-normal">Normal</span></td><td>g/dL</td><td>13.0-17.7</td></tr>
+                    <tr><td>Hematocrit</td><td>40.0</td><td><span class="status-badge status-normal">Normal</span></td><td>%</td><td>37.5-51.0</td></tr>
+                    <tr><td>MCV</td><td>87</td><td><span class="status-badge status-normal">Normal</span></td><td>fL</td><td>79-97</td></tr>
+                    <tr><td>MCH</td><td>30.0</td><td><span class="status-badge status-normal">Normal</span></td><td>pg</td><td>26.6-33.0</td></tr>
+                    <tr><td>Platelets</td><td>247</td><td><span class="status-badge status-normal">Normal</span></td><td>x10E3/uL</td><td>150-450</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- CMP -->
+        <div class="section">
+            <div class="section-title">Comprehensive Metabolic Panel (CMP)</div>
+            <table>
+                <thead>
+                    <tr><th>Test</th><th>Result</th><th>Status</th><th>Units</th><th>Reference</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Glucose</td><td>90</td><td><span class="status-badge status-normal">Normal</span></td><td>mg/dL</td><td>70-99</td></tr>
+                    <tr><td>BUN</td><td>10</td><td><span class="status-badge status-normal">Normal</span></td><td>mg/dL</td><td>6-20</td></tr>
+                    <tr><td>Creatinine</td><td>1.00</td><td><span class="status-badge status-normal">Normal</span></td><td>mg/dL</td><td>0.76-1.27</td></tr>
+                    <tr><td>eGFR</td><td>101</td><td><span class="status-badge status-normal">Normal</span></td><td>mL/min/1.73</td><td>&gt;59</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Patient Details -->
+        <div class="patient-details">
+            <div class="detail-block">
+                <h4>Patient Details</h4>
+                <p><strong>Bishop, Tyler</strong></p>
+                <p>DOB: 05/26/1987 | Age at Test: 30</p>
+                <p>Sex: Male</p>
+            </div>
+            <div class="detail-block">
+                <h4>Test Summary</h4>
+                <p>Total Tests: 26</p>
+                <p>Date: 12/18/2017</p>
+                <p>All values within normal limits</p>
+            </div>
+            <div class="detail-block">
+                <h4>Next Report</h4>
+                <p><a href="2018-08-28-allergies.html" style="color: #38bdf8;">08/28/2018 - Allergies, CBC</a></p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

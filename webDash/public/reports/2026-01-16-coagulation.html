@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Report: January 16, 2026 - Coagulation Panel | Tyler Bishop</title>
+    <style>
+        @font-face {
+            font-family: 'Satoshi';
+            src: url('../fonts/Satoshi-Variable.woff2') format('woff2'),
+                 url('../fonts/Satoshi-Variable.woff') format('woff');
+            font-weight: 300 900;
+            font-display: swap;
+            font-style: normal;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(15deg, #0D0E0E 0%, #0E0E0E 100%);
+            color: #ACEBE6;
+            min-height: 100vh;
+            padding: 20px;
+            font-size: medium;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #38bdf8;
+            text-decoration: none;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .back-link:hover { color: #7dd3fc; }
+
+        .report-header {
+            background: rgba(35 48 49 / 0.17);
+            border: 1px solid rgba(0 229 255 / 0.27);
+            padding: 25px;
+            border-radius: 9px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(100px);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            box-shadow: 0 0 7px 0 rgba(124 163 167 / 0.3);
+        }
+
+        .report-header h1 {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1CFFE1;
+            margin-bottom: 8px;
+        }
+
+        .report-meta {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            background: rgba(36 143 136 / 0.3);
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: 1px solid rgba(148 184 180 / 0.3);
+        }
+
+        .meta-label {
+            font-size: 11px;
+            color: #0EFFFF;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .meta-value {
+            font-size: 15px;
+            font-weight: 600;
+            color: #A7E2EC;
+        }
+
+        .lab-badge {
+            background: #0629305F;
+            color: #ADECEA;
+            border: 1px solid #36FFF8;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .section {
+            background: rgba(30 59 56 / 0.6);
+            border: 1px solid rgba(94 180 167 / 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #38F8F2;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(56 248 242 / 0.3);
+        }
+
+        .ordered-items {
+            background: rgba(56 189 248 / 0.1);
+            border-left: 3px solid #38bdf8;
+            padding: 12px 15px;
+            border-radius: 0 6px 6px 0;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #cbd5e1;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        thead { background: rgba(2 23 23 / 0.5); }
+
+        th {
+            padding: 12px;
+            text-align: left;
+            color: #86DFD3;
+            font-weight: 600;
+            border-bottom: 2px solid rgba(56 248 223 / 0.2);
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        tr:hover { background: rgba(56, 189, 248, 0.05); }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-normal { background: rgba(41 134 100 / 0.2); color: #72FCC1; }
+        .status-high { background: rgba(135 40 40 / 0.2); color: #FF8989; }
+        .status-alert { background: rgba(255 119 7 / 0.2); color: #FFAA3B; }
+
+        .notes {
+            background: rgba(56, 189, 248, 0.1);
+            border-left: 3px solid #38bdf8;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+
+        .genetic-result {
+            background: rgba(51 207 102 / 0.1);
+            border: 1px solid rgba(51 207 102 / 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .genetic-result h4 {
+            color: #72FCC1;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .result-text {
+            font-size: 20px;
+            font-weight: 700;
+            color: #72FCC1;
+            margin-bottom: 10px;
+        }
+
+        .patient-details {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .detail-block h4 {
+            color: #86DFD3;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .detail-block p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 5px;
+        }
+
+        .methodology {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .report-header { flex-direction: column; gap: 15px; }
+            .report-meta { grid-template-columns: 1fr; }
+            .patient-details { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">← Back to Dashboard</a>
+
+        <div class="report-header">
+            <div>
+                <h1>Patient Report - Coagulation Panel</h1>
+                <p style="color: #94a3b8;">Antiphospholipid Antibody Panel & Factor V Leiden Genetic Testing</p>
+                <div class="report-meta">
+                    <div class="meta-item">
+                        <div class="meta-label">Patient</div>
+                        <div class="meta-value">Tyler Bishop</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Date Collected</div>
+                        <div class="meta-value">01/16/2026</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Date Reported</div>
+                        <div class="meta-value">01/22/2026</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">DOB</div>
+                        <div class="meta-value">05/26/1987</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Age / Sex</div>
+                        <div class="meta-value">38 / Male</div>
+                    </div>
+                    <div class="meta-item">
+                        <div class="meta-label">Fasting</div>
+                        <div class="meta-value">Yes</div>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-badge">Labcorp</div>
+        </div>
+
+        <div class="ordered-items">
+            <strong>Ordered Items:</strong> Antiphospholipid Antibody Panel; Factor V Leiden<br>
+            <strong>Clinical Indication:</strong> Evaluation following hemarthrosis (bleeding into joint) discovered 01/04/2026
+        </div>
+
+        <!-- Antiphospholipid Panel -->
+        <div class="section">
+            <div class="section-title">Antiphospholipid Antibody Panel</div>
+            <p style="color: #94a3b8; margin-bottom: 15px; font-size: 13px;">This panel tests for autoantibodies associated with antiphospholipid syndrome (APS), which can cause abnormal clotting or bleeding.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Test</th>
+                        <th>Result</th>
+                        <th>Flag</th>
+                        <th>Units</th>
+                        <th>Reference Interval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Anticardiolipin Ab, IgG, Qn</td>
+                        <td>&lt;9</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>GPL U/mL</td>
+                        <td>0-14 (Negative &lt;15)</td>
+                    </tr>
+                    <tr>
+                        <td>Anticardiolipin Ab, IgM, Qn</td>
+                        <td>&lt;9</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>MPL U/mL</td>
+                        <td>0-12 (Negative &lt;13)</td>
+                    </tr>
+                    <tr>
+                        <td>Anticardiolipin Ab, IgA, Qn</td>
+                        <td>&lt;9</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>APL U/mL</td>
+                        <td>0-11 (Negative &lt;12)</td>
+                    </tr>
+                    <tr>
+                        <td>Beta-2 Glycoprotein I Ab, IgG</td>
+                        <td>&lt;9</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>GPI IgG units</td>
+                        <td>0-20</td>
+                    </tr>
+                    <tr>
+                        <td>Beta-2 Glycoprotein I Ab, IgA</td>
+                        <td>&lt;9</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>GPI IgA units</td>
+                        <td>0-25</td>
+                    </tr>
+                    <tr>
+                        <td>Beta-2 Glycoprotein I Ab, IgM</td>
+                        <td>&lt;9</td>
+                        <td><span class="status-badge status-normal">Negative</span></td>
+                        <td>GPI IgM units</td>
+                        <td>0-32</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="notes">
+                <strong>Interpretation:</strong> All six antiphospholipid antibodies are negative. This rules out antiphospholipid syndrome (APS) as a cause of the hemarthrosis.
+            </div>
+        </div>
+
+        <!-- Factor V Leiden -->
+        <div class="section">
+            <div class="section-title">Factor V Leiden Genetic Test</div>
+            <p style="color: #94a3b8; margin-bottom: 15px; font-size: 13px;">Testing for the Factor V Leiden mutation (R506Q), the most common inherited cause of abnormal blood clotting.</p>
+
+            <div class="genetic-result">
+                <h4>Test Result</h4>
+                <div class="result-text">G-G (Normal-Normal)</div>
+                <p style="color: #72FCC1; font-weight: 600;">No Factor V Leiden mutation present.</p>
+            </div>
+
+            <div class="methodology">
+                <strong>Interpretation:</strong> While the patient does not possess this risk factor, other thrombotic risk factors may be detected through systematic clinical laboratory analysis.
+                <br><br>
+                <strong>Methodology:</strong> Patient DNA was evaluated for the factor V Leiden mutation at nucleotide 1691 using allele specific PCR technology followed by gel electrophoresis.
+                <br><br>
+                <strong>Clinical Notes:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Simultaneous Risks: If a patient possesses two or more congenital or acquired thrombophilic risk factors, the risk of thrombosis may rise to more than the sum of the risk ratios for the individual risk factors.</li>
+                    <li>The factor V Leiden mutation is an inherited characteristic. If the mutation were present, genetic counseling would be recommended.</li>
+                    <li>This assay detects only the factor V Leiden mutation and does not detect other genetic abnormalities.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="notes">
+            <strong>Summary:</strong> Both the Antiphospholipid Antibody Panel and Factor V Leiden genetic testing are negative. No inherited or acquired coagulopathy detected that would explain the hemarthrosis. The cause of joint bleeding remains undetermined; may require further rheumatology or hematology evaluation.
+        </div>
+
+        <!-- Patient/Physician/Specimen Details -->
+        <div class="patient-details">
+            <div class="detail-block">
+                <h4>Patient Details</h4>
+                <p><strong>Bishop, Tyler</strong></p>
+                <p>3434 VOYAGER CIR, SAN DIEGO, CA, 92130</p>
+                <p>Phone: 636-448-1747</p>
+                <p>DOB: 05/26/1987 | Age: 38 | Sex: Male</p>
+                <p>Patient ID: BT762792</p>
+            </div>
+            <div class="detail-block">
+                <h4>Physician Details</h4>
+                <p><strong>B VEST</strong></p>
+                <p>Dermatology Center of La Jolla</p>
+                <p>6605 Nancy Ridge Dr, San Diego, CA, 92121</p>
+                <p>Phone: 858-454-7123</p>
+                <p>Account Number: 04125132</p>
+                <p>NPI: 1891311403</p>
+            </div>
+            <div class="detail-block">
+                <h4>Specimen Details</h4>
+                <p>Specimen ID: 016-338-1981-0</p>
+                <p>Control ID: 260414VM</p>
+                <p>Date Collected: 01/16/2026 1420 Local</p>
+                <p>Date Received: 01/16/2026</p>
+                <p>Date Reported: 01/22/2026 1506 ET</p>
+            </div>
+        </div>
+
+        <div class="notes" style="margin-top: 20px;">
+            <strong>Performing Labs:</strong><br>
+            01: Labcorp Phoenix, 5005 S 40th Street Ste 1200, Phoenix, AZ 85040-2969 (Anticardiolipin/Beta-2 GP)<br>
+            02: Esoterix Inc, 8490 Upland Drive Ste 100, Englewood, CO 80112-7116 (Factor V Leiden)<br>
+            For inquiries: 800-859-6046 | Lab: 858-668-3700
+        </div>
+    </div>
+</body>
+</html>
