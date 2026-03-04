@@ -674,7 +674,7 @@
                         <div class="timeline-date">01/12/2026</div>
                         <div class="timeline-label">C1, Tryptase</div>
                     </a>
-                    <a href="reports/2026-01-16-cbc-cmp.html" class="timeline-item active">
+                    <a href="reports/2026-01-16-cbc-cmp.html" class="timeline-item">
                         <div class="timeline-date">01/16/2026</div>
                         <div class="timeline-label">CBC, CMP, Coag, UA</div>
                     </a>
@@ -682,12 +682,16 @@
                         <div class="timeline-date">01/19/2026</div>
                         <div class="timeline-label">LDH Isoenzymes</div>
                     </a>
+                    <a href="reports/2026-02-24-coagulation-vwf.html" class="timeline-item active" style="border-color: rgba(255 170 59 / 0.4);">
+                        <div class="timeline-date" style="color: #FFAA3B;">02/24/2026</div>
+                        <div class="timeline-label">Coag, vWF, Uric Acid</div>
+                    </a>
                 </div>
                 <p style="color: #64868B; font-size: 12px; margin-top: 10px;">Click any date to view the full lab report. <a href="reports/index.html" style="color: #38bdf8;">View all reports →</a></p>
             </div>
             
             <div class="section">
-                <div class="section-title">Key Health Metrics (Latest: 01/16/2026)</div>
+                <div class="section-title">Key Health Metrics (Latest: 02/24/2026)</div>
                 <div class="metric-grid">
                     <div class="metric-card">
                         <div class="metric-name">Glucose</div>
@@ -787,6 +791,27 @@
                                 <td>5.0-7.5</td>
                                 <td><span class="status-badge status-alert">HIGH</span></td>
                                 <td>Alkaline urine, likely due to good hydration (Jan 16, 2026)</td>
+                            </tr>
+                            <tr>
+                                <td>Factor VIII Activity</td>
+                                <td>147%</td>
+                                <td>56-140%</td>
+                                <td><span class="status-badge status-high">HIGH</span></td>
+                                <td>Elevated on vWF panel (Feb 24, 2026); associated with increased VTE risk</td>
+                            </tr>
+                            <tr>
+                                <td>vWF Antigen / Activity</td>
+                                <td>143% / 126%</td>
+                                <td>50-200%</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                                <td>Rules out von Willebrand Disease (Feb 24, 2026)</td>
+                            </tr>
+                            <tr>
+                                <td>Uric Acid</td>
+                                <td>5.6 mg/dL</td>
+                                <td>3.8-8.4</td>
+                                <td><span class="status-badge status-normal">Normal</span></td>
+                                <td>Rules out gout/hyperuricemia as cause of joint inflammation (Feb 24, 2026)</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1742,23 +1767,70 @@
                 </div>
                 
                 <div class="genetic-section">
-                    <div class="genetic-title">Coagulation Testing (01/16/2026) — Tested following Hemarthrosis</div>
-                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Factor V Leiden and Antiphospholipid antibodies tested to evaluate potential coagulopathy following joint bleeding.</p>
+                    <div class="genetic-title">Coagulation Testing (01/16/2026 &amp; 02/24/2026) — Tested following Hemarthrosis</div>
+                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Factor V Leiden tested 01/16. Comprehensive coagulation factor panel and von Willebrand profile tested 02/24 to evaluate potential coagulopathy following joint bleeding.</p>
                     <div class="genetic-content">
                         <div class="genetic-item">
                             <div class="genetic-label">Factor V Leiden (R506Q Mutation)</div>
                             <div class="genetic-result" style="color: #72FCC1;">Negative (Normal/Normal) ✓</div>
                         </div>
                         <div class="genetic-item">
-                            <div class="genetic-label">Clinical Interpretation</div>
-                            <div class="genetic-result">No mutation detected. Patient does not have Factor V Leiden thrombophilia.</div>
+                            <div class="genetic-label">Factor VIII Activity (Coag Panel)</div>
+                            <div class="genetic-result">137% (ref 57-163) — Normal</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor VIII Activity (vWF Panel)</div>
+                            <div class="genetic-result" style="color: #FFAA3B;">147% (ref 56-140) — HIGH ⚠️</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor IX Activity</div>
+                            <div class="genetic-result">91% (ref 60-177) — Normal</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor XI Activity</div>
+                            <div class="genetic-result">90% (ref 60-150) — Normal</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Fibrinogen Activity</div>
+                            <div class="genetic-result">226 mg/dL (ref 160-420) — Normal</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">APTT / PT / INR</div>
+                            <div class="genetic-result">28.2 sec / 10.8 sec / 1.0 — All Normal</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">D-Dimer Quantitative</div>
+                            <div class="genetic-result" style="color: #72FCC1;">0.37 ug/mL FEU (ref &lt;0.50) — Normal ✓</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="genetic-section">
+                    <div class="genetic-title">von Willebrand Disease Assessment (02/24/2026)</div>
+                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Tested to evaluate for von Willebrand Disease as a cause of spontaneous hemarthrosis.</p>
+                    <div class="genetic-content">
+                        <div class="genetic-item">
+                            <div class="genetic-label">vWF Antigen</div>
+                            <div class="genetic-result" style="color: #72FCC1;">143% (ref 50-200) — Normal ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">vWF Activity (Ristocetin Cofactor)</div>
+                            <div class="genetic-result" style="color: #72FCC1;">126% (ref 50-200) — Normal ✓</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Factor VIII Activity</div>
+                            <div class="genetic-result" style="color: #FFAA3B;">147% (ref 56-140) — HIGH ⚠️</div>
+                        </div>
+                        <div class="genetic-item">
+                            <div class="genetic-label">Interpretation</div>
+                            <div class="genetic-result">Not consistent with von Willebrand Disease. Elevated Factor VIII is a recognized risk factor for venous thromboembolism (VTE).</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="genetic-section">
-                    <div class="genetic-title">Antiphospholipid Antibody Panel (01/16/2026)</div>
-                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Comprehensive panel to rule out antiphospholipid syndrome (APS) as cause of bleeding/clotting abnormalities.</p>
+                    <div class="genetic-title">Antiphospholipid Antibody Panel (01/16/2026 &amp; 02/24/2026)</div>
+                    <p style="color: #94B8B0; font-size: 13px; margin-bottom: 15px;">Comprehensive panel to rule out antiphospholipid syndrome (APS). Tested twice (01/16 &amp; 02/24) — both negative, confirming no APS.</p>
                     <div class="genetic-content">
                         <div class="genetic-item">
                             <div class="genetic-label">Cardiolipin Ab IgG</div>
@@ -1786,7 +1858,7 @@
                         </div>
                         <div class="genetic-item">
                             <div class="genetic-label">Panel Interpretation</div>
-                            <div class="genetic-result">All antiphospholipid antibodies negative. No evidence of antiphospholipid syndrome.</div>
+                            <div class="genetic-result">All antiphospholipid antibodies negative on two separate occasions (01/16 &amp; 02/24/2026). Definitively rules out antiphospholipid syndrome.</div>
                         </div>
                     </div>
                 </div>
@@ -1807,8 +1879,12 @@
                             <div class="genetic-result">4G/5G Heterozygous</div>
                         </div>
                         <div class="genetic-item">
+                            <div class="genetic-label">Factor VIII Activity (02/24/2026)</div>
+                            <div class="genetic-result" style="color: #FFAA3B;">147% (ref 56-140) — Elevated. Independent risk factor for VTE ⚠️</div>
+                        </div>
+                        <div class="genetic-item">
                             <div class="genetic-label">Risk Assessment</div>
-                            <div class="genetic-result">Low thrombotic risk; no major clotting disorders detected</div>
+                            <div class="genetic-result">No inherited thrombophilia (Factor V Leiden negative, Prothrombin G20210A negative). Elevated Factor VIII noted — monitor and consider hematology evaluation if thrombotic event occurs.</div>
                         </div>
                     </div>
                 </div>
@@ -1862,7 +1938,7 @@
                 </div>
                 
                 <div class="notes">
-                    <strong>Summary:</strong> Genetic profile shows generally favorable markers with normal drug metabolism for most medications. MTHFR heterozygous status (both variants) suggests mild reduction in methylation capacity but not clinically significant. <strong>Coagulation workup (01/16/2026):</strong> Factor V Leiden negative and full Antiphospholipid panel negative — no inherited thrombophilia or APS detected. These tests were performed following hemarthrosis finding. Lipid metabolism markers (ApoE ε3/ε3, ACE II, CETP BB) are associated with better cardiovascular health outcomes. CYP2C19 intermediate metabolizer status may warrant dose adjustments for certain SSRIs or warfarin if prescribed.
+                    <strong>Summary:</strong> Genetic profile shows generally favorable markers with normal drug metabolism for most medications. MTHFR heterozygous status (both variants) suggests mild reduction in methylation capacity but not clinically significant. <strong>Coagulation workup (01/16 &amp; 02/24/2026):</strong> Factor V Leiden negative, full Antiphospholipid panel negative on two occasions, von Willebrand Disease ruled out (vWF Antigen 143%, Activity 126% — both normal). Comprehensive coagulation factors (VIII, IX, XI, Fibrinogen, APTT, PT, INR, D-Dimer) all normal. <strong>Notable finding:</strong> Factor VIII Activity elevated at 147% (ref 56-140) on vWF panel — recognized independent risk factor for venous thromboembolism. Uric acid normal (5.6 mg/dL), ruling out gout. Lipid metabolism markers (ApoE ε3/ε3, ACE II, CETP BB) are associated with better cardiovascular health outcomes. CYP2C19 intermediate metabolizer status may warrant dose adjustments for certain SSRIs or warfarin if prescribed.
                 </div>
             </div>
         </div>
@@ -1911,7 +1987,14 @@
                                 <td>01/04/2026</td>
                                 <td>Hemarthrosis - Right Elbow (RBC 3.2M, Neutrophils 68%)</td>
                                 <td><span class="status-badge status-alert">INVESTIGATE</span></td>
-                                <td>Synovial fluid shows significant bleeding into joint. Factor V Leiden and Antiphospholipid panel both negative. Cause undetermined; requires rheumatology/hematology follow-up.</td>
+                                <td>Synovial fluid shows significant bleeding into joint. Extensive workup: Factor V Leiden negative, APS panel negative (x2), vWD ruled out, coag factors normal, uric acid normal. Factor VIII elevated (147%). Cause undetermined; hematology follow-up recommended.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-alert">MODERATE</span></td>
+                                <td>02/24/2026</td>
+                                <td>Factor VIII Activity Elevated (147%, ref 56-140)</td>
+                                <td><span class="status-badge status-alert">MONITOR</span></td>
+                                <td>Elevated on vWF panel. Independent risk factor for VTE. vWD ruled out (vWF Antigen &amp; Activity normal). Monitor; consider repeat testing and hematology referral if thrombotic symptoms arise.</td>
                             </tr>
                             <tr>
                                 <td><span class="status-badge status-high">HIGH</span></td>
@@ -2049,19 +2132,26 @@
                                 <td>All normal; LDH 232 (slight high), urine pH 8.0 (high). Factor V Leiden &amp; APS negative.</td>
                                 <td><span class="status-badge status-normal">Normal</span></td>
                             </tr>
-                            <tr style="background: rgba(56, 248, 242, 0.1);">
+                            <tr>
                                 <td><strong>01/19/2026</strong></td>
                                 <td>LDH Isoenzymes (LD Fractions)</td>
                                 <td>6 tests</td>
                                 <td>LDH Total elevated (231); all fractions normal distribution</td>
                                 <td><span class="status-badge status-alert">MONITOR</span></td>
                             </tr>
+                            <tr style="background: rgba(56, 248, 242, 0.1);">
+                                <td><strong>02/24/2026</strong></td>
+                                <td>Coagulation, vWF Profile, APS, Uric Acid</td>
+                                <td>18 tests</td>
+                                <td>Factor VIII elevated (147%); vWD &amp; APS ruled out; uric acid normal (5.6); coag factors normal</td>
+                                <td><span class="status-badge status-alert">FVIII HIGH</span></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
                 
                 <div class="notes" style="margin-top: 30px;">
-                    <strong>Archive Summary:</strong> Medical records spanning 9 years (2017-2026) show overall good health trajectory. Key findings in January 2026: hemarthrosis (bleeding in right elbow joint) detected via synovial fluid analysis on 01/04/2026. Extensive follow-up testing completed 01/16/2026: Factor V Leiden negative, Antiphospholipid panel negative, C1 Esterase Inhibitor (serum &amp; functional) normal, Tryptase normal. CBC and CMP all within normal limits with excellent kidney function (eGFR 105). Inflammatory markers (ESR 2, CRP &lt;1) show no systemic inflammation. Liver enzymes fully normalized (AST 26, ALT 25). LDH slightly elevated at 232 but isoenzymes show normal distribution. Urinalysis benign (dilute specimen with alkaline pH only). Current status: Hemarthrosis cause undetermined; no coagulopathy or autoimmune etiology identified.
+                    <strong>Archive Summary:</strong> Medical records spanning 9 years (2017-2026) show overall good health trajectory. Key findings in January 2026: hemarthrosis (bleeding in right elbow joint) detected via synovial fluid analysis on 01/04/2026. Extensive follow-up testing completed 01/16/2026: Factor V Leiden negative, Antiphospholipid panel negative, C1 Esterase Inhibitor (serum &amp; functional) normal, Tryptase normal. CBC and CMP all within normal limits with excellent kidney function (eGFR 105). Inflammatory markers (ESR 2, CRP &lt;1) show no systemic inflammation. Liver enzymes fully normalized (AST 26, ALT 25). LDH slightly elevated at 232 but isoenzymes show normal distribution. <strong>February 2026 workup (02/24):</strong> Comprehensive coagulation factor panel (VIII, IX, XI, Fibrinogen, APTT, PT, INR, D-Dimer) all normal. Von Willebrand Disease assessment: vWF Antigen 143% and Activity 126% — both normal, ruling out vWD. Antiphospholipid antibodies repeated — all negative (second confirmation). Uric acid 5.6 mg/dL — normal, ruling out gout. <strong>Notable:</strong> Factor VIII Activity elevated at 147% (ref 56-140), a recognized VTE risk factor. Current status: Hemarthrosis cause remains undetermined; no inherited coagulopathy, vWD, APS, or crystal arthropathy identified. Elevated Factor VIII requires monitoring.
                 </div>
             </div>
         </div>
