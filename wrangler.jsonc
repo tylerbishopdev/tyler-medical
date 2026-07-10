@@ -1,7 +1,12 @@
 {
   "name": "square-smoke-9144",
+  "main": "src/index.js",
   "compatibility_date": "2026-01-30",
   "assets": {
-    "directory": "./public"
+    // Static assets are matched and served before the Worker runs, so existing
+    // _headers / _redirects / extensionless-HTML behaviour is unchanged.
+    // The Worker only handles /mcp and 404 fallthrough.
+    "directory": "./public",
+    "binding": "ASSETS"
   }
 }

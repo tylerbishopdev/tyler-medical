@@ -618,6 +618,10 @@
                     <span>📄</span>
                     <span>View Lab Reports</span>
                 </a>
+                <a href="llms.txt" class="export-btn" style="text-decoration: none;">
+                    <span>🤖</span>
+                    <span>llms.txt</span>
+                </a>
                 <button class="export-btn" onclick="exportRecord()">
                     <span>📥</span>
                     <span>Export Raw Data</span>
@@ -642,9 +646,21 @@
             <div class="section">
                 <div class="section-title">Test History Timeline</div>
                 <div class="timeline">
+                    <a href="reports/2017-07-05-thyroid-ultrasound.html" class="timeline-item">
+                        <div class="timeline-date">07/05/2017</div>
+                        <div class="timeline-label">US Thyroid</div>
+                    </a>
+                    <a href="reports/2017-07-05-breast-ultrasound.html" class="timeline-item">
+                        <div class="timeline-date">07/05/2017</div>
+                        <div class="timeline-label">US Breast (Right)</div>
+                    </a>
                     <a href="reports/2017-12-18-baseline.html" class="timeline-item">
                         <div class="timeline-date">12/18/2017</div>
                         <div class="timeline-label">CBC, CMP, Lipids</div>
+                    </a>
+                    <a href="reports/2018-07-30-abdominal-ultrasound.html" class="timeline-item">
+                        <div class="timeline-date">07/30/2018</div>
+                        <div class="timeline-label">US Abdomen</div>
                     </a>
                     <a href="reports/2018-08-28-allergies.html" class="timeline-item">
                         <div class="timeline-date">08/28/2018</div>
@@ -658,9 +674,17 @@
                         <div class="timeline-date">04/27/2023</div>
                         <div class="timeline-label">Allergens</div>
                     </a>
+                    <a href="reports/2024-05-13-dermatopathology.html" class="timeline-item" style="border-color: rgba(255 170 59 / 0.4);">
+                        <div class="timeline-date" style="color: #FFAA3B;">05/13/2024</div>
+                        <div class="timeline-label">Dermatopathology</div>
+                    </a>
                     <a href="reports/2024-11-18-rheumatology.html" class="timeline-item">
                         <div class="timeline-date">11/18/2024</div>
                         <div class="timeline-label">Rheumatology Panel</div>
+                    </a>
+                    <a href="reports/2025-05-08-mra-neck.html" class="timeline-item">
+                        <div class="timeline-date">05/08/2025</div>
+                        <div class="timeline-label">MRA Neck</div>
                     </a>
                     <a href="reports/2025-07-17-cbc-cmp.html" class="timeline-item">
                         <div class="timeline-date">07/17/2025</div>
@@ -702,9 +726,13 @@
                         <div class="timeline-date">07/02/2026</div>
                         <div class="timeline-label">ANA Screen</div>
                     </a>
-                    <a href="reports/2026-07-02-protein-electrophoresis.html" class="timeline-item active">
+                    <a href="reports/2026-07-02-protein-electrophoresis.html" class="timeline-item">
                         <div class="timeline-date">07/02/2026</div>
                         <div class="timeline-label">SPEP & Free Light Chains</div>
+                    </a>
+                    <a href="reports/2026-07-06-mri-right-shoulder.html" class="timeline-item active" style="border-color: rgba(255 170 59 / 0.4);">
+                        <div class="timeline-date" style="color: #FFAA3B;">07/06/2026</div>
+                        <div class="timeline-label">MRI Right Shoulder</div>
                     </a>
                 </div>
                 <p style="color: #64868B; font-size: 12px; margin-top: 10px;">Click any date to view the full lab report. <a href="reports/index.html" style="color: #38bdf8;">View all reports →</a></p>
@@ -810,6 +838,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <tr>
+                                <td>MRI Right Shoulder</td>
+                                <td>Large effusions</td>
+                                <td>—</td>
+                                <td><span class="status-badge status-alert">ABNORMAL</span></td>
+                                <td>Large glenohumeral joint effusion + large subcoracoid bursal effusion; interstitial supraspinatus tear 2.3 cm (Jul 6, 2026)</td>
+                            </tr>
+                            <tr>
+                                <td>Dermatopathology (R jawline)</td>
+                                <td>Non-specific</td>
+                                <td>—</td>
+                                <td><span class="status-badge status-alert">NON-SPECIFIC</span></td>
+                                <td>Superficial epidermal necrosis; neutrophilic dermal infiltrate with hemorrhage; no eosinophils; DIF negative (May 13, 2024)</td>
+                            </tr>
                             <tr>
                                 <td>Serum Protein Electrophoresis (SPEP)</td>
                                 <td>No monoclonal protein</td>
@@ -920,6 +962,58 @@
                 </div>
             </div>
             
+            <!-- Imaging & Pathology Section -->
+            <div class="section">
+                <div class="section-title">Imaging &amp; Pathology Reports</div>
+                <p style="color: #94B8B0; margin-bottom: 15px;">Full radiology and pathology reports, reproduced verbatim from the signed originals. Click any card to read the complete report.</p>
+                <div class="metric-grid">
+                    <a href="reports/2026-07-06-mri-right-shoulder.html" class="metric-card" style="text-decoration: none; display: block; border-color: rgba(255 170 59 / 0.4);">
+                        <div class="metric-name" style="color: #FFAA3B;">MRI Right Shoulder</div>
+                        <div class="metric-value" style="font-size: 18px; color: #FFAA3B;">Large effusions</div>
+                        <div class="metric-range">07/06/2026 — glenohumeral &amp; subcoracoid bursa</div>
+                    </a>
+                    <a href="reports/2025-05-08-mra-neck.html" class="metric-card" style="text-decoration: none; display: block;">
+                        <div class="metric-name">MRA Neck</div>
+                        <div class="metric-value" style="font-size: 18px; color: #51cf66;">No stenosis</div>
+                        <div class="metric-range">05/08/2025 — vertebrobasilar workup</div>
+                    </a>
+                    <a href="reports/2024-05-13-dermatopathology.html" class="metric-card" style="text-decoration: none; display: block; border-color: rgba(255 170 59 / 0.4);">
+                        <div class="metric-name" style="color: #FFAA3B;">Dermatopathology</div>
+                        <div class="metric-value" style="font-size: 18px; color: #FFAA3B;">Non-specific</div>
+                        <div class="metric-range">05/13/2024 — R jawline biopsy; DIF negative</div>
+                    </a>
+                    <a href="reports/2026-02-17-abdominal-ultrasound.html" class="metric-card" style="text-decoration: none; display: block; border-color: rgba(255 170 59 / 0.4);">
+                        <div class="metric-name" style="color: #FFAA3B;">US Abdomen</div>
+                        <div class="metric-value" style="font-size: 18px; color: #FFAA3B;">Fatty liver</div>
+                        <div class="metric-range">02/17/2026 — increased echogenicity</div>
+                    </a>
+                    <a href="reports/2018-07-30-abdominal-ultrasound.html" class="metric-card" style="text-decoration: none; display: block;">
+                        <div class="metric-name">US Abdomen (baseline)</div>
+                        <div class="metric-value" style="font-size: 18px; color: #51cf66;">Liver normal</div>
+                        <div class="metric-range">07/30/2018 — 3 mm GB polyp</div>
+                    </a>
+                    <a href="reports/2017-07-05-breast-ultrasound.html" class="metric-card" style="text-decoration: none; display: block;">
+                        <div class="metric-name">US Breast (Right)</div>
+                        <div class="metric-value" style="font-size: 18px; color: #51cf66;">BI-RADS 2</div>
+                        <div class="metric-range">07/05/2017 — subdermal mass, dermal origin</div>
+                    </a>
+                    <a href="reports/2017-07-05-thyroid-ultrasound.html" class="metric-card" style="text-decoration: none; display: block;">
+                        <div class="metric-name">US Thyroid</div>
+                        <div class="metric-value" style="font-size: 18px; color: #51cf66;">Normal</div>
+                        <div class="metric-range">07/05/2017 — no nodule identified</div>
+                    </a>
+                    <a href="reports/2026-01-04-synovial.html" class="metric-card" style="text-decoration: none; display: block; border-color: rgba(255 137 137 / 0.5);">
+                        <div class="metric-name" style="color: #FF8989;">Synovial Fluid</div>
+                        <div class="metric-value" style="font-size: 18px; color: #FF8989;">Hemarthrosis</div>
+                        <div class="metric-range">01/04/2026 — right elbow, 68% neutrophils</div>
+                    </a>
+                </div>
+                <div class="notes" style="margin-top: 18px;">
+                    <strong>Pattern worth noting across these studies:</strong> recurrent sterile fluid collections — a spontaneous right elbow hemarthrosis (01/2026) and large glenohumeral plus subcoracoid bursal effusions (07/2026) — alongside a skin biopsy showing neutrophilic dermal inflammation with hemorrhage and <em>no</em> eosinophils, and negative direct immunofluorescence. Hepatic echogenicity was normal in 2018 and fatty by 2026.
+                </div>
+                <p style="color: #64868B; font-size: 12px; margin-top: 10px;"><a href="reports/index.html" style="color: #38bdf8;">View all reports →</a> &nbsp;·&nbsp; <a href="llms.txt" style="color: #38bdf8;">Machine-readable summary for AI agents (llms.txt) →</a></p>
+            </div>
+
             <!-- LDH Isoenzymes Section -->
             <div class="section">
                 <div class="section-title">LD Isoenzymes / LDH Fractions (01/16/2026 &amp; 01/19/2026) ⚠️</div>
@@ -2114,6 +2208,27 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td><span class="status-badge status-alert">MODERATE</span></td>
+                                <td>07/06/2026</td>
+                                <td>MRI R shoulder: large glenohumeral effusion + large subcoracoid bursal effusion</td>
+                                <td><span class="status-badge status-alert">INVESTIGATE</span></td>
+                                <td>Radiologist attributes fluid to suspected subscapularis tear. Given the prior sterile hemarthrosis and long history of recurrent joint/bursal swelling, aspiration with cell count, crystal analysis under polarized light, and culture would separate a mechanical post-surgical effusion from an inflammatory one.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-alert">MODERATE</span></td>
+                                <td>05/13/2024</td>
+                                <td>Skin biopsy: neutrophilic dermal inflammation with hemorrhage; no eosinophils; DIF negative</td>
+                                <td><span class="status-badge status-alert">UNRESOLVED</span></td>
+                                <td>Pathologist: "the histopathologic features are not specific." Rules out autoimmune blistering disease, infection, and vasculitis. Tissue exhausted from block — a deeper punch of an early lesion with mucin/amyloid stains and repeat DIF is needed.</td>
+                            </tr>
+                            <tr>
+                                <td><span class="status-badge status-normal">INFO</span></td>
+                                <td>05/08/2025</td>
+                                <td>MRA neck negative for stenosis/dissection (study flagged suboptimal)</td>
+                                <td><span class="status-badge status-normal">Addressed</span></td>
+                                <td>Answers the vertebrobasilar-insufficiency question for large-vessel disease. Venous contamination reduced sensitivity; repeat MRA or CTA if exertional symptoms persist.</td>
+                            </tr>
+                            <tr>
                                 <td><span class="status-badge status-normal">INFO</span></td>
                                 <td>06/29-07/02/2026</td>
                                 <td>Monoclonal / Plasma-Cell Screen: SPEP no M-protein, free kappa 10.6 (normal), total protein 6.5</td>
@@ -2208,11 +2323,25 @@
                         </thead>
                         <tbody>
                             <tr>
+                                <td><strong>07/05/2017</strong></td>
+                                <td>US Thyroid; US Breast Right (imaging)</td>
+                                <td>2 studies</td>
+                                <td>Thyroid normal, no nodule. Right retroareolar subdermal mass 2.3 cm — dermal origin, not gynecomastia (BI-RADS 2)</td>
+                                <td><span class="status-badge status-alert">DERMAL MASS</span></td>
+                            </tr>
+                            <tr>
                                 <td><strong>12/18/2017</strong></td>
                                 <td>CBC, CMP, Lipids</td>
                                 <td>26 tests</td>
                                 <td>All normal; baseline established</td>
                                 <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>07/30/2018</strong></td>
+                                <td>US Abdomen Complete (imaging)</td>
+                                <td>1 study</td>
+                                <td>Liver echogenicity normal (16.8 cm); 3 mm gallbladder polyp; kidneys, spleen, pancreas normal</td>
+                                <td><span class="status-badge status-normal">Baseline</span></td>
                             </tr>
                             <tr>
                                 <td><strong>08/28/2018</strong></td>
@@ -2236,11 +2365,25 @@
                                 <td><span class="status-badge status-normal">Normal</span></td>
                             </tr>
                             <tr>
+                                <td><strong>05/13/2024</strong></td>
+                                <td>Dermatopathology, right jawline shave biopsy (+DIF)</td>
+                                <td>1 specimen (2 parts)</td>
+                                <td>Superficial epidermal necrosis; neutrophilic dermal infiltrate with hemorrhage; no eosinophils; DIF negative; stains for organisms negative</td>
+                                <td><span class="status-badge status-alert">NON-SPECIFIC</span></td>
+                            </tr>
+                            <tr>
                                 <td><strong>11/18/2024</strong></td>
                                 <td>Rheumatology Panel, CBC, Immune</td>
                                 <td>48 tests</td>
                                 <td>AST, ALT significantly elevated (62, 95); all autoimmune negative</td>
                                 <td><span class="status-badge status-high">HIGH ALERT</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>05/08/2025</strong></td>
+                                <td>MRA Neck W/WO Contrast (imaging)</td>
+                                <td>1 study</td>
+                                <td>No stenosis or dissection in any carotid or vertebral artery; study suboptimal due to venous contamination</td>
+                                <td><span class="status-badge status-normal">Negative</span></td>
                             </tr>
                             <tr>
                                 <td><strong>07/17/2025</strong></td>
@@ -2284,12 +2427,19 @@
                                 <td>Factor VIII elevated (147%); vWD &amp; APS ruled out; uric acid normal (5.6); coag factors normal</td>
                                 <td><span class="status-badge status-alert">FVIII HIGH</span></td>
                             </tr>
-                            <tr style="background: rgba(56, 248, 242, 0.1);">
+                            <tr>
                                 <td><strong>06/29-07/02/2026</strong></td>
                                 <td>Protein Electrophoresis, Free Light Chains, ANA</td>
                                 <td>9 tests</td>
                                 <td>No monoclonal protein on SPEP; free kappa normal (10.6); total protein 6.5; ANA negative (repeat)</td>
                                 <td><span class="status-badge status-normal">Normal</span></td>
+                            </tr>
+                            <tr style="background: rgba(56, 248, 242, 0.1);">
+                                <td><strong>07/06/2026</strong></td>
+                                <td>MRI Right Shoulder (imaging)</td>
+                                <td>1 study</td>
+                                <td>Large glenohumeral + subcoracoid bursal effusions; interstitial supraspinatus tear 2.3 cm; interval rotator cuff repair</td>
+                                <td><span class="status-badge status-alert">EFFUSIONS</span></td>
                             </tr>
                         </tbody>
                     </table>
